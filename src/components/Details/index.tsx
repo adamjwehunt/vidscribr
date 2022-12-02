@@ -1,79 +1,60 @@
 import React from 'react';
-import { Flex } from '../../components/Flex';
 import styled from '@emotion/styled';
-import useViewport from '../../hooks/useViewport';
+import { css } from '@emotion/react';
+import { Marquee } from '../Marquee';
 
 interface DetailsProps {
 	thumbnailUrl: string;
 	title: string;
 	artist: string;
+	isMobile: boolean;
 }
 
-const Wrapper = styled(Flex)<{ isMobile: boolean }>`
-	width: ${({ isMobile }) => (isMobile ? '100%' : '30%')};
+const DetailsContainer = styled.div<{ isMobile: boolean }>`
+	display: flex;
+	width: 30%;
+
+	${({ isMobile }) =>
+		isMobile &&
+		css`
+			width: 100%;
+		`};
 `;
 
-const TextWrapper = styled(Flex)`
+const TextContainer = styled.div`
+	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	flex-direction: column;
 	width: 100%;
+	line-height: 1.2;
 `;
 
-const Text = styled.div`
-	width: 100%;
-	max-height: 3rem;
-	overflow: hidden;
-	position: relative;
-  line-height: 1.5;
-
-	/* & ::after {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		right: 0;
-		height: 100%;
-		width: 50px;
-		background-image: linear-gradient(to right, rgba(24, 24, 24, 0), #000);
-		z-index: 2;
-		pointer-events: none;
-	} */
-
-	& p {
-		font-weight: bold;
-		font-size: 1rem;
-		overflow: hidden;
-		text-align: justify;
-		white-space: nowrap;
-		margin: 0;
-	}
-`;
-
-const TitleText = styled(Text)`
-	& p {
-		font-size: 1.4rem;
-	}
-`;
-
-const ArtistText = styled(Text)`
-	opacity: 0.6;
-`;
-
-export default function Details({ thumbnailUrl, title, artist }: DetailsProps) {
-	const { isMobile } = useViewport();
-
+export default function Details({
+	thumbnailUrl,
+	title,
+	artist,
+	isMobile,
+}: DetailsProps) {
 	return (
-		<Wrapper isMobile={isMobile}>
+		<DetailsContainer isMobile={isMobile}>
 			{isMobile ? null : <img src={thumbnailUrl} />}
-			<TextWrapper>
-				<TitleText>
-					<p>{title}</p>
-				</TitleText>
-				<ArtistText>
-					<p>{artist}</p>
-				</ArtistText>
-			</TextWrapper>
-		</Wrapper>
+			<TextContainer>
+				<Marquee
+					text={title}
+					options={{ textStyle: { fontSize: '1.5em', fontWeight: 500 } }}
+				/>
+				<Marquee
+					text={artist}
+					options={{
+						textStyle: {
+							fontSize: '1em',
+							letterSpacing: '0.02em',
+							opacity: '0.6',
+						},
+					}}
+				/>
+			</TextContainer>
+		</DetailsContainer>
 	);
 }

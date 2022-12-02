@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import useViewport from '../../hooks/useViewport';
+import SearchIcon from '@mui/icons-material/Search';
 
-interface ExpandButtonProps {
+interface SearchTranscriptButtonProps {
 	onClick: () => void;
-	isMobile: boolean;
 }
 
-export const ExpandButton = styled(
-	({ isMobile, onClick }: ExpandButtonProps) => {
+export const SearchTranscriptButton = styled(
+	({ onClick }: SearchTranscriptButtonProps) => {
 		const svgStyle = {
-			height: isMobile ? '0.7em' : '16px',
-			marginLeft: '0.25em',
+			// marginTop: '-0.4em',
+			// height: isMobile ? '0.7em' : '16px',
+			// marginLeft: '0.25em',
+			// width: '100%',
+			// fill: 'hsla(0,0%,100%,.7)',
 		};
 
 		return (
@@ -25,11 +26,10 @@ export const ExpandButton = styled(
 				sx={{
 					fontSize: '.8em',
 					borderRadius: '1.5em',
-					backgroundColor: 'rgba(0, 0, 0, 0.55)',
-					height: '1.2em',
-					padding: '1em 0.1em 1em 1.35em',
-					letterSpacing: '.05em',
-					marginTop: '-0.25em',
+					backgroundColor: 'rgba(0, 0, 0, 0.60)',
+					height: '3em',
+					width: '3em',
+					// padding: '1.em',
 					'&:hover': {
 						backgroundColor: 'transparent',
 						'& svg': {
@@ -45,8 +45,7 @@ export const ExpandButton = styled(
 				component="label"
 				onClick={onClick}
 			>
-				<div>{'MORE'}</div>
-				<OpenInFullIcon style={svgStyle} />
+				<SearchIcon style={svgStyle} />
 			</IconButton>
 		);
 	}

@@ -1,94 +1,69 @@
-import React, { ReactElement } from 'react';
-import { motion } from 'framer-motion';
-import { Flex } from '../Flex';
-import styled from '@emotion/styled';
-import { ExpandButton } from './ExpandButton';
+import React, { Dispatch, ReactElement, RefObject } from 'react';
+import Top from './Top';
+import Bottom from './Bottom';
+import TranscriptControls from './TranscriptControls';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
+import ReactPlayer from 'react-player';
+import { ICaption } from '../../types';
+import { AppReducerAction, AppReducerState } from '../appReducer/types';
 
-const Wrapper = styled(motion.div)`
-	background: coral;
-	position: absolute;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-`;
+interface TranscriptProps {
+	title: string;
+	artist: string;
+	isMobile: boolean;
+	isBuffering: boolean;
+	captions: ICaption[];
+	appState: AppReducerState;
+	progress: number;
+	dispatch: Dispatch<AppReducerAction>;
+	reactPlayerRef: RefObject<ReactPlayer>;
+}
 
-const CaptionsTop = styled(motion.div)`
-	position: absolute;
-  z-index: 1;
-	left: '0';
-	right: '0';
-  top: '0';
-	background: coral;
-	border-radius: 4px;
-	padding: 12px;
-	align-items: flex-start;
-`;
-
-const Content = styled(Flex)`
-	width: 100%;
-  padding: 16px;
-	flex-direction: column;
-`;
-
-const TranscriptHeader = styled(Flex)`
-	margin-bottom: 16px;
-	width: 100%;
-`;
-
-const Captions = styled(Flex)`
-	width: 100%;
-	flex-direction: column;
-	overflow: scroll;
-`;
-
-export default function Transcript({ captions }: any): ReactElement {
-	// console.log(`src/components/Transcript/index.tsx - 45 => captions: `, '\n', captions);
+export default function Transcript({
+	captions,
+	title,
+	artist,
+	appState,
+	reactPlayerRef,
+	dispatch,
+	isMobile,
+	isBuffering,
+}: TranscriptProps): ReactElement {
 	const [isExpanded, setIsExpanded] = React.useState(false);
+	const handleToggleExpand = () => setIsExpanded(!isExpanded);
 
 	return (
-		<>
-			<CaptionsTop
-				animate={isExpanded ? 'expanded' : 'minimized'}
-				variants={{
-					expanded: {
-						bottom: '7vh',
-					},
-					minimized: {
-						bottom: '0',
-					},
-				}}
-			></CaptionsTop>
-			<Wrapper
-				animate={isExpanded ? 'expanded' : 'minimized'}
-				variants={{
-					expanded: {
-						top: '7vh',
-						bottom: '0',
-						left: '0',
-						right: '0',
-					},
-					minimized: {
-						top: '96vh',
-						bottom: '-175px',
-						left: '16px',
-						right: '16px',
-					},
-				}}
-			>
-				<Content>
-					<TranscriptHeader>
-						<TranscriptHeader>Transcript</TranscriptHeader>
-						<ExpandButton onClick={() => setIsExpanded(!isExpanded)} />
-					</TranscriptHeader>
-					{captions && captions.length ? (
-						<Captions>
-							{captions.map((caption: any) => (
-								<div>{caption?.text}</div>
-							))}
-						</Captions>
-					) : null}
-				</Content>
-			</Wrapper>
-		</>
+		<MotionConfig transition={{ type: 'ease-in-out', duration: 0.35 }}>
+			<AnimatePresence>
+				{isExpanded && (
+					<Top
+						key={'top'}
+						title={title}
+						artist={artist}
+						onToggleExpand={handleToggleExpand}
+					/>
+				)}
+				<Bottom
+					reactPlayerRef={reactPlayerRef}
+					isMobile={isMobile}
+					isExpanded={isExpanded}
+					progress={appState.progress}
+					captions={captions}
+					onToggleExpand={handleToggleExpand}
+				/>
+				{isExpanded && (
+					<TranscriptControls
+						key={'transcriptControls'}
+						dispatch={dispatch}
+						reactPlayerRef={reactPlayerRef}
+						isPlaying={appState.isPlaying}
+						isBuffering={appState.isBuffering}
+						progress={appState.progress}
+						duration={appState.duration}
+						isMobile={isMobile}
+					/>
+				)}
+			</AnimatePresence>
+		</MotionConfig>
 	);
 }

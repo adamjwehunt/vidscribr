@@ -1,86 +1,82 @@
 import React, { Dispatch, ReactElement, RefObject } from 'react';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import ReactPlayer from 'react-player';
-import { Flex } from './Flex';
-import useViewport from '../hooks/useViewport';
+import { AppReducerAction } from './appReducer/types';
 
-interface PlayerProps {
-	reactPlayerRef: RefObject<ReactPlayer>;
-	dispatch: Dispatch<any>;
-	url: string;
-	isPlaying: boolean;
-}
-
-const Wrapper = styled(Flex)<{ isMobile: boolean }>`
+const PlayerWrapper = styled.div<{ isMobile: boolean }>`
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: ${({ isMobile }) => (isMobile ? 'calc(8vh + 175px)' : '90px')};
-	padding: 8px 0;
+	bottom: 90px;
+	display: flex;
+	align-items: center;
+
+	${({ isMobile }) =>
+		isMobile &&
+		css`
+			bottom: 30dvh;
+		`};
 `;
 
-const PlayerContainer = styled(ReactPlayer)`
-	position: sticky;
-	top: 8px;
-`;
+interface PlayerProps {
+	reactPlayerRef: RefObject<ReactPlayer>;
+	dispatch: Dispatch<AppReducerAction>;
+	url: string;
+	isPlaying: boolean;
+	isMobile: boolean;
+}
 
 export default function Player({
 	reactPlayerRef,
 	dispatch,
 	url,
 	isPlaying,
+	isMobile,
 }: PlayerProps): ReactElement {
-	const { isMobile } = useViewport();
-
 	return (
-		<Wrapper isMobile={isMobile}>
-			<PlayerContainer
-				onDuration={(number) => {
-					console.log(
-						`src/components/Player.tsx - 40 => number: `,
-						'\n',
-						number
-					);
-				}}
+		<PlayerWrapper isMobile={isMobile}>
+			<ReactPlayer
+				style={{ position: 'sticky', top: '6dvh' }}
 				ref={reactPlayerRef}
 				url={url}
 				playing={isPlaying}
-				muted={true}
 				width={'100%'}
-				height={'56.25vw'}
+				height={'56.25dvw'}
+				controls={true}
 				progressInterval={200}
-				onReady={() =>
+				config={{
+					youtube: {
+						playerVars: {
+							wmode: 'opaque',
+						},
+					},
+				}}
+				onReady={() => {}}
+				onDuration={(duration) =>
 					dispatch({
 						type: 'duration',
-						seconds: reactPlayerRef.current?.getDuration() ?? 0,
+						seconds: duration,
 					})
 				}
-				onProgress={({ playedSeconds }) => {
-					console.log(
-						`src/components/Player.tsx - 60 => playedSeconds: `,
-						'\n',
-						playedSeconds
-					);
+				onProgress={({ playedSeconds }) =>
 					dispatch({
 						type: 'progress',
 						seconds: playedSeconds,
-					});
-				}}
-				onSeek={(seconds) => {
-					console.log(
-						`src/components/Player.tsx - 71 => seconds: `,
-						'\n',
-						seconds
-					);
+					})
+				}
+				onSeek={(seconds) =>
 					dispatch({
 						type: 'progress',
 						seconds,
-					});
-				}}
+					})
+				}
 				onPlay={() => dispatch({ type: 'play' })}
 				onPause={() => dispatch({ type: 'pause' })}
+				onBuffer={() => dispatch({ type: 'buffer' })}
+				onBufferEnd={() => dispatch({ type: 'bufferEnd' })}
 			/>
-		</Wrapper>
+		</PlayerWrapper>
 	);
 }

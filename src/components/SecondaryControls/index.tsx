@@ -1,23 +1,37 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import useViewport from '../../hooks/useViewport';
-import { Flex } from '../Flex';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { MenuButton } from './MenuButton';
 import { DownloadButton } from './DownloadButton';
 
-const Wrapper = styled(Flex)<{ isMobile: boolean }>`
-	width: ${({ isMobile }) => (isMobile ? '100%' : '30%')};
-	height: 24px;
+const SecondaryControlsContainer = styled.div<{ isMobile: boolean }>`
+	width: 30%;
 	justify-content: space-between;
+	display: flex;
+	margin-top: -0.5em;
+
+	${({ isMobile }) =>
+		isMobile &&
+		css`
+			width: 100%;
+		`};
 `;
 
-export default function SecondaryControls() {
-	const { isMobile } = useViewport();
+interface SecondaryControlsProps {
+	isMobile: boolean;
+}
 
+export default function SecondaryControls({
+	isMobile,
+}: SecondaryControlsProps) {
 	return (
-		<Wrapper isMobile={isMobile}>
-			<DownloadButton />
-			<MenuButton />
-		</Wrapper>
+		<SecondaryControlsContainer isMobile={isMobile}>
+			<div style={{ marginLeft: '-8px' }}>
+				<DownloadButton isMobile={isMobile} />
+			</div>
+			<div style={{ marginRight: '-8px' }}>
+				<MenuButton isMobile={isMobile} />
+			</div>
+		</SecondaryControlsContainer>
 	);
 }

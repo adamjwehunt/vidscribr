@@ -1,9 +1,8 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Slider, Typography, Box } from '@mui/material';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { Slider, Typography, Box, SxProps, Theme } from '@mui/material';
 import { formatDuration } from './util';
-import { Flex } from '../Flex';
-import useViewport from '../../hooks/useViewport';
 
 interface ScrubberProps {
 	progress: number;
@@ -12,20 +11,15 @@ interface ScrubberProps {
 	onScrubCommitted: (seconds: number) => void;
 }
 
-const Wrapper = styled(Flex)`
-	width: 100%;
-`;
-
 const TinyText = styled(Typography)({
 	color: 'white',
-	fontSize: '0.75rem',
+	fontSize: '0.75em',
 	opacity: 0.6,
 	fontWeight: 500,
 	letterSpacing: 0.2,
 });
 
-const Widget = styled('div')(({ theme }) => ({
-	padding: '0 8px',
+const Widget = styled.div(({ theme }) => ({
 	margin: 'auto',
 	position: 'relative',
 	zIndex: 1,
@@ -37,10 +31,15 @@ export default function Scrubber({
 	onScrub,
 	onScrubCommitted,
 }: ScrubberProps) {
-	const { isMobile } = useViewport();
-
 	return (
-		<Box sx={{ width: '100%', overflow: 'hidden' }}>
+		<Box
+			sx={
+				css`
+					width: 100%;
+					margin: 0.5em 0;
+				` as React.CSSProperties
+			}
+		>
 			<Widget>
 				<Slider
 					aria-label="time-indicator"
@@ -55,7 +54,7 @@ export default function Scrubber({
 						color: '#fff',
 						height: 4,
 						'& .MuiSlider-thumb': {
-							display: isMobile ? 'block' : 'none',
+							display: 'block',
 							width: 12,
 							height: 12,
 							transition: 'none',
@@ -85,7 +84,7 @@ export default function Scrubber({
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'space-between',
-						mt: -2,
+						marginTop: '-0.8em',
 					}}
 				>
 					<TinyText>{formatDuration(progress)}</TinyText>

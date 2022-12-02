@@ -1,44 +1,57 @@
-import React, { Dispatch, ReactElement, RefObject, useEffect } from 'react';
+import React, { Dispatch, ReactElement, RefObject } from 'react';
 import ReactPlayer from 'react-player';
-import { styled } from '@mui/material/styles';
-import { Flex } from '../Flex';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { SkipButton } from './SkipButton';
 import { PlayPauseButton } from './PlayPauseButton';
 import { clamp } from './util';
 import Scrubber from './Scrubber';
-import useViewport from '../../hooks/useViewport';
+import { AppReducerAction } from '../appReducer/types';
+
+const ControlsContainer = styled.div<{ isMobile: boolean }>`
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	${({ isMobile }) =>
+		isMobile &&
+		css`
+			flex-direction: column-reverse;
+		`};
+`;
+
+const ButtonsContainer = styled.div<{ isMobile: boolean }>`
+	display: flex;
+	gap: 16px;
+
+	${({ isMobile }) =>
+		isMobile &&
+		css`
+			gap: 32px;
+		`};
+`;
 
 interface ControlsProps {
 	reactPlayerRef: RefObject<ReactPlayer>;
-	dispatch: Dispatch<any>;
+	dispatch: Dispatch<AppReducerAction>;
 	isPlaying: boolean;
+	isBuffering: boolean;
 	progress: number;
 	duration: number;
+	isMobile: boolean;
 }
-
-const Wrapper = styled(Flex)<{ isMobile: boolean }>`
-	flex-direction: ${({ isMobile }) => (isMobile ? 'column-reverse' : 'column')};
-	justify-content: center;
-	align-items: center;
-	width: ${({ isMobile }) => (isMobile ? '100%' : '40%')};
-`;
-
-const ButtonWrapper = styled(Flex)<{ isMobile: boolean }>`
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	gap: ${({ isMobile }) => (isMobile ? '32px' : '16px')};
-`;
 
 export default function Controls({
 	reactPlayerRef,
 	dispatch,
 	isPlaying,
+	isBuffering,
 	progress,
 	duration,
+	isMobile,
 }: ControlsProps): ReactElement {
-	const { isMobile } = useViewport();
-
 	const handleSkip = (seconds: number) => {
 		const progress = reactPlayerRef.current?.getCurrentTime() ?? 0;
 		const newProgress = clamp(progress + seconds, 0, duration);
@@ -51,22 +64,11 @@ export default function Controls({
 	};
 
 	const handleScrub = (seconds: number) => {
-		console.log(
-			`src/components/Controls/index.tsx - 54 => seconds: `,
-			'\n',
-			seconds
-		);
 		dispatch({ type: 'progress', seconds });
 		// handleSeek(seconds);
 	};
 
 	const handleScrubCommitted = (seconds: number) => {
-		console.log(
-			`src/components/Controls/index.tsx - 60 => seconds: `,
-			'\n',
-			seconds
-		);
-
 		// dispatch({ type: 'progress', seconds });
 		handleSeek(seconds);
 	};
@@ -75,21 +77,22 @@ export default function Controls({
 		reactPlayerRef.current?.seekTo(seconds);
 
 	return (
-		<Wrapper isMobile={isMobile}>
-			<ButtonWrapper isMobile={isMobile}>
-				<SkipButton back onSkip={handleSkip} />
+		<ControlsContainer isMobile={isMobile}>
+			<ButtonsContainer isMobile={isMobile}>
+				<SkipButton back isMobile={isMobile} onSkip={handleSkip} />
 				<PlayPauseButton
 					isPlaying={isPlaying}
+					isBuffering={isBuffering}
 					onTogglePlay={() => dispatch({ type: isPlaying ? 'pause' : 'play' })}
 				/>
-				<SkipButton onSkip={handleSkip} />
-			</ButtonWrapper>
+				<SkipButton isMobile={isMobile} onSkip={handleSkip} />
+			</ButtonsContainer>
 			<Scrubber
 				progress={progress}
 				duration={duration}
 				onScrub={handleScrub}
 				onScrubCommitted={handleScrubCommitted}
 			/>
-		</Wrapper>
+		</ControlsContainer>
 	);
 }

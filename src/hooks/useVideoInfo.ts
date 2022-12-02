@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ICaption, ICaptionTrack } from '../types';
 
 export default function useVideoInfo(url: string) {
 	const [videoInfo, setVideoInfo] = useState<any | null>(null);
@@ -29,14 +30,10 @@ export async function getYoutubeInfo({
 	videoId: string;
 	language?: string;
 }) {
-	console.log(`src/hooks/useVideoInfo.ts - 32 => videoId: `, '\n', videoId);
 	const url = `https://video-stream-info-0t47m3binksc.runkit.sh/ytinfo?url=${videoId}`;
-	const videoInfo = await fetch(url).then((t) => {
-		console.log(`src/hooks/useVideoInfo.ts - 34 => t: `, '\n', t);
-		t.json();
-	});
+	const videoInfo = await fetch(url).then((t) => t.json());
 
-	let captions: any = [];
+	let captions: ICaption[] = [];
 	if (videoInfo?.tracks?.length > 0) {
 		captions = await getYoutubeCaptions(videoInfo.tracks, language);
 	}
@@ -44,24 +41,17 @@ export async function getYoutubeInfo({
 	return { ...videoInfo, captions };
 }
 
-interface CaptionTrack {
-	baseUrl: string;
-	isTranslatable: boolean;
-	languageCode: string;
-	name: { simpleText: string };
-	vssId: string;
-}
-
 export async function getYoutubeCaptions(
-	captionTracks: CaptionTrack[],
+	captionTracks: ICaptionTrack[],
 	language = 'en'
-): Promise<any[]> {
+): Promise<ICaption[]> {
 	const resp = await fetch(findBestTranscriptUrl(captionTracks, language))
 		.then((response) => response.text())
 		.then((str) => new window.DOMParser().parseFromString(str, 'text/xml'));
 
 	const sentenceNodes = Array.from(resp.getElementsByTagName('text'));
-	return sentenceNodes.map((sentence) => ({
+	return sentenceNodes.map((sentence, index) => ({
+		id: index,
 		start: parseFloat(sentence.getAttribute('start') as string),
 		duration: parseFloat(sentence.getAttribute('dur') as string),
 		text: decodeHtmlCharCodes(sentence.textContent as string),
@@ -69,7 +59,7 @@ export async function getYoutubeCaptions(
 }
 
 const findBestTranscriptUrl = (
-	captionTracks: CaptionTrack[],
+	captionTracks: ICaptionTrack[],
 	language = 'en'
 ): string => {
 	const trackMatchesByLanguage = captionTracks

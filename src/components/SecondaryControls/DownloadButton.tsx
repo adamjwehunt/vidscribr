@@ -1,15 +1,16 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import useViewport from '../../hooks/useViewport';
+interface DownloadButtonProps {
+	isMobile: boolean;
+}
 
-export const DownloadButton = styled(() => {
-	const { isMobile } = useViewport();
+export const DownloadButton = styled(({ isMobile }: DownloadButtonProps) => {
 	const svgStyle = {
-		height: isMobile ? '24px' : '16px',
+		height: isMobile ? '1em' : '16px',
 		width: '100%',
-		fill: 'hsla(0,0%,100%,.7)',
+		fill: `hsla(0,0%, 100%, ${isMobile ? '1' : '0.7'})`,
 	};
 
 	return (
@@ -34,7 +35,13 @@ export const DownloadButton = styled(() => {
 			component="label"
 			onClick={() => {}}
 		>
-			<FileDownloadIcon style={svgStyle} />
+			<FileDownloadIcon
+				style={{
+					height: isMobile ? '1em' : '16px',
+					width: '100%',
+					fill: `hsla(0,0%, 100%, ${isMobile ? '1' : '0.7'})`,
+				}}
+			/>
 		</IconButton>
 	);
 })`

@@ -3,6 +3,7 @@ import { AppReducer, AppReducerAction, AppReducerState } from './types';
 export const DEFAULT_APP_REDUCER_STATE: AppReducerState = Object.freeze({
 	url: '',
 	isPlaying: false,
+	isBuffering: false,
 	duration: 0,
 	progress: 0,
 });
@@ -26,6 +27,16 @@ export const appReducer: AppReducer = (
 			return {
 				...previousState,
 				isPlaying: false,
+			};
+		case 'buffer':
+			return {
+				...previousState,
+				isBuffering: true,
+			};
+		case 'bufferEnd':
+			return {
+				...previousState,
+				isBuffering: false,
 			};
 		case 'duration':
 			return {

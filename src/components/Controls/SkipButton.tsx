@@ -1,19 +1,22 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import SkipForwardIcon from '../../svgs/skip_forward.svg';
 import SkipBackIcon from '../../svgs/skip_back.svg';
-import useViewport from '../../hooks/useViewport';
 
 const SKIP_COUNT_SECONDS = 15;
+interface SkipButtonProps {
+	onSkip: (seconds: number) => void;
+	isMobile: boolean;
+	back?: boolean;
+}
 
 export const SkipButton = styled(
-	({ onSkip, back }: { onSkip: (seconds: number) => void; back?: boolean }) => {
-		const { isMobile } = useViewport();
+	({ onSkip, back, isMobile }: SkipButtonProps) => {
 		const svgStyle = {
-			height: isMobile ? '24px' : '16px',
+			height: '1.3em',
 			width: '100%',
-			fill: 'hsla(0,0%,100%,.7)',
+			fill: `hsla(0,0%, 100%, ${isMobile ? '1' : '0.7'})`,
 		};
 
 		return (
