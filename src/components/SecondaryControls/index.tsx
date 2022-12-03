@@ -1,37 +1,35 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import useAppContext from '../appContext';
 import { MenuButton } from './MenuButton';
 import { DownloadButton } from './DownloadButton';
+import { css } from '@emotion/react';
 
-const SecondaryControlsContainer = styled.div<{ isMobile: boolean }>`
-	width: 30%;
-	justify-content: space-between;
-	display: flex;
-	margin-top: -0.5em;
+interface SecondaryControlsProps {
+	className?: string;
+}
 
-	${({ isMobile }) =>
-		isMobile &&
+export const SecondaryControls = styled(
+	({ className }: SecondaryControlsProps) => (
+		<div className={className}>
+			<DownloadButton />
+			<MenuButton />
+		</div>
+	)
+)(() => {
+	const {
+		viewport: { isMobile },
+	} = useAppContext();
+
+	return css`
+		width: 30%;
+		justify-content: space-between;
+		display: flex;
+		margin-top: -0.5em;
+
+		${isMobile &&
 		css`
 			width: 100%;
 		`};
-`;
-
-interface SecondaryControlsProps {
-	isMobile: boolean;
-}
-
-export default function SecondaryControls({
-	isMobile,
-}: SecondaryControlsProps) {
-	return (
-		<SecondaryControlsContainer isMobile={isMobile}>
-			<div style={{ marginLeft: '-8px' }}>
-				<DownloadButton isMobile={isMobile} />
-			</div>
-			<div style={{ marginRight: '-8px' }}>
-				<MenuButton isMobile={isMobile} />
-			</div>
-		</SecondaryControlsContainer>
-	);
-}
+	`;
+});

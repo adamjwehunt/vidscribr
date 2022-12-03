@@ -1,30 +1,32 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
+import { SerializedStyles } from '@emotion/react';
+
+const MarqueeWrapper = styled.div`
+	width: 100%;
+	overflow: hidden;
+`;
+
+const Text = styled.div`
+	text-align: justify;
+	white-space: nowrap;
+`;
 
 interface MarqueeProps {
-	text: string;
-	options?: any;
+	className?: string;
+	text?: string;
+	textStyle?: SerializedStyles;
 }
 
-export const Marquee = ({ text, options }: MarqueeProps) => {
+export const Marquee = styled(({ className, text }: MarqueeProps) => {
 	const MarqueeWrapperRef = useRef<HTMLInputElement>(null);
 	const textRef = useRef<HTMLInputElement>(null);
 
-	const MarqueeWrapper = styled.div`
-		width: 100%;
-		overflow: hidden;
-	`;
-
-	const Text = styled.div`
-		text-align: justify;
-		white-space: nowrap;
-	`;
-
 	return (
 		<MarqueeWrapper ref={MarqueeWrapperRef}>
-			<Text ref={textRef} style={options?.textStyle}>
-				{text}
+			<Text ref={textRef} className={className}>
+				{text ?? ''}
 			</Text>
 		</MarqueeWrapper>
 	);
-};
+})(({ textStyle }) => textStyle);

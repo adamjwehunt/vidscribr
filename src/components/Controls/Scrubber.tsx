@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import usePlayerContext from '../playerContext';
 import { css } from '@emotion/react';
-import { Slider, Typography, Box, SxProps, Theme } from '@mui/material';
+import { Slider, Typography, Box } from '@mui/material';
 import { formatDuration } from './util';
+import ReactPlayer from 'react-player';
 
 interface ScrubberProps {
-	progress: number;
-	duration: number;
-	onScrub: (seconds: number) => void;
-	onScrubCommitted: (seconds: number) => void;
+	reactPlayerRef: React.RefObject<ReactPlayer>;
 }
 
 const TinyText = styled(Typography)({
@@ -25,12 +24,22 @@ const Widget = styled.div(({ theme }) => ({
 	zIndex: 1,
 }));
 
-export default function Scrubber({
-	progress,
-	duration,
-	onScrub,
-	onScrubCommitted,
-}: ScrubberProps) {
+export default function Scrubber({ reactPlayerRef }: ScrubberProps) {
+	const {
+		playerState: { progress, duration },
+		playerDispatch,
+	} = usePlayerContext();
+
+	const handleScrub = (seconds: number) => {
+		playerDispatch({ type: 'progress', seconds });
+		// handleSeek(seconds);
+	};
+
+	const handleScrubCommitted = (seconds: number) => {
+		// playerDispatch({ type: 'progress', seconds });
+		reactPlayerRef.current?.seekTo(seconds);
+	};
+
 	return (
 		<Box
 			sx={
@@ -48,8 +57,10 @@ export default function Scrubber({
 					min={0}
 					step={1}
 					max={duration}
-					onChange={(_, value) => onScrub(value as number)}
-					onChangeCommitted={(_, value) => onScrubCommitted(value as number)}
+					onChange={(_, value) => handleScrub(value as number)}
+					onChangeCommitted={(_, value) =>
+						handleScrubCommitted(value as number)
+					}
 					sx={{
 						color: '#fff',
 						height: 4,

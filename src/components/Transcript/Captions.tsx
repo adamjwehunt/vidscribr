@@ -1,50 +1,9 @@
 import React, { RefObject, useCallback, useRef } from 'react';
-import styled from '@emotion/styled';
-import Caption from './Caption';
-import { ICaption } from '../../types';
 import ReactPlayer from 'react-player';
-
-const CaptionsWrapper = styled.div`
-	position: relative;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 1em 0;
-	background-color: rgb(185, 153, 190);
-
-	&:before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		pointer-events: none;
-		background-image: linear-gradient(
-			to top,
-			rgba(185, 153, 190, 0),
-			rgb(185, 153, 190) 90%
-		);
-		height: 2.3em;
-		z-index: 1;
-	}
-
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		pointer-events: none;
-		background-image: linear-gradient(
-			to bottom,
-			rgba(185, 153, 190, 0),
-			rgb(185, 153, 190) 90%
-		);
-		height: 2.3em;
-		z-index: 1;
-	}
-`;
+import styled from '@emotion/styled';
+import { Caption } from '../../types';
+import { CaptionText } from './CaptionText';
+import { css } from '@emotion/react';
 
 const CaptionsContainer = styled.div`
 	overflow: scroll;
@@ -55,53 +14,85 @@ const CaptionsContainer = styled.div`
 `;
 
 interface CaptionsProps {
-	captions: ICaption[];
-	activeCaptionId: number | null;
 	reactPlayerRef: RefObject<ReactPlayer>;
+	className?: string;
+	captions: Caption[];
+	activeCaptionId: number | null;
 }
 
-function Captions({
-	captions,
-	activeCaptionId,
-	reactPlayerRef,
-}: CaptionsProps) {
-	const wrapperRef = useRef<HTMLInputElement>(null);
+export const Captions = React.memo(
+	styled(
+		({
+			className,
+			captions,
+			activeCaptionId,
+			reactPlayerRef,
+		}: CaptionsProps) => {
+			const wrapperRef = useRef<HTMLInputElement>(null);
 
-	const handleActiveCaptionChange = useCallback((activeCaption: any) => {
-		const wrapper = wrapperRef?.current;
-		if (activeCaption && wrapper) {
-			const activeCaptionRect = activeCaption.getBoundingClientRect();
-			// console.log(
-			// 	`src/components/Transcript/Captions.tsx - 47 => activeCaptionRect: `,
-			// 	'\n',
-			// 	activeCaptionRect
-			// );
+			const handleActiveCaptionChange = useCallback((activeCaption: any) => {
+				const wrapper = wrapperRef?.current;
+				if (activeCaption && wrapper) {
+					const activeCaptionRect = activeCaption.getBoundingClientRect();
+					// wrapper.scrollTo(0, middle);
+					// activeCaption.scrollIntoView()
+				}
+			}, []);
 
-			// wrapper.scrollTo(0, middle);
-			// activeCaption.scrollIntoView()
+			return (
+				<div ref={wrapperRef} className={className}>
+					<CaptionsContainer>
+						{captions.map(({ start, text, id }: Caption, i: number) => {
+							const isActive = activeCaptionId === id;
+							return (
+								<CaptionText
+									key={i}
+									isActive={isActive}
+									captionRef={isActive ? handleActiveCaptionChange : null}
+									onClick={() => {
+										reactPlayerRef.current?.seekTo(start);
+									}}
+									text={text}
+								/>
+							);
+						})}
+					</CaptionsContainer>
+				</div>
+			);
 		}
-	}, []);
+	)(() => {
+		const pseudoElementBase = (location: 'top' | 'bottom') => css`
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			${location}: 0;
+			pointer-events: none;
+			height: 2.3em;
+			z-index: 1;
+			background-image: linear-gradient(
+				to ${location},
+				rgba(185, 153, 190, 0),
+				rgb(185, 153, 190) 90%
+			);
+		`;
 
-	return (
-		<CaptionsWrapper ref={wrapperRef}>
-			<CaptionsContainer>
-				{captions.map(({ start, text, id }: ICaption, i: number) => {
-					const isActive = activeCaptionId === id;
-					return (
-						<Caption
-							key={i}
-							isActive={isActive}
-							captionRef={isActive ? handleActiveCaptionChange : null}
-							onClick={() => {
-								reactPlayerRef.current?.seekTo(start);
-							}}
-							text={text}
-						/>
-					);
-				})}
-			</CaptionsContainer>
-		</CaptionsWrapper>
-	);
-}
+		return css`
+			position: relative;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 1em 0;
+			background-color: rgb(185, 153, 190);
 
-export default React.memo(Captions);
+			&:before {
+				${pseudoElementBase('top')};
+			}
+
+			&:after {
+				${pseudoElementBase('bottom')};
+			}
+		`;
+	})
+);

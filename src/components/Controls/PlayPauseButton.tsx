@@ -1,56 +1,49 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import usePlayerContext from '../playerContext';
 import { PlayCircle, PauseCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
-import BufferSpinner from './BufferSpinner';
-import { AnimatePresence } from 'framer-motion';
+import { BufferSpinner } from './BufferSpinner';
+import { css } from '@emotion/react';
+import { PlayPauseIcon } from './PlayPauseIcon';
 
-const PlayPauseButtonWrapper = styled.div`
+interface PlayPauseButtonProps {
+	className?: string;
+}
+
+export const PlayPauseButton = styled(({ className }: PlayPauseButtonProps) => {
+	const {
+		playerState: { isPlaying },
+		playerDispatch,
+	} = usePlayerContext();
+
+	return (
+		<div className={className}>
+			<IconButton
+				aria-label={isPlaying ? 'Pause' : 'Play'}
+				size="medium"
+				color="primary"
+				component="label"
+				onClick={() => playerDispatch({ type: isPlaying ? 'pause' : 'play' })}
+				disableRipple
+				sx={{
+					pointerEvents: 'auto',
+					padding: 0,
+					'& path': {
+						transform: 'scale(1.2, 1.2)',
+						transformOrigin: 'center',
+					},
+					'&:active path': {
+						transform: 'scale(1.1, 1.1)',
+					},
+				}}
+			>
+				<PlayPauseIcon icon={isPlaying ? PauseCircle : PlayCircle} />
+			</IconButton>
+			<BufferSpinner />
+		</div>
+	);
+})(css`
 	position: relative;
 	pointer-events: none;
-`;
-
-export const PlayPauseButton = styled(
-	({
-		isPlaying,
-		isBuffering,
-		onTogglePlay,
-	}: {
-		isPlaying: boolean;
-		isBuffering: boolean;
-		onTogglePlay: () => void;
-	}) => {
-		const svgStyle = { height: '2.4em', width: '100%' };
-
-		return (
-			<PlayPauseButtonWrapper>
-				<IconButton
-					aria-label={isPlaying ? 'Pause' : 'Play'}
-					size="medium"
-					color="primary"
-					component="label"
-					onClick={onTogglePlay}
-					disableRipple
-					sx={{
-						pointerEvents: 'auto',
-						padding: 0,
-						'& path': {
-							transform: 'scale(1.2, 1.2)',
-							transformOrigin: 'center',
-						},
-						'&:active path': {
-							transform: 'scale(1.1, 1.1)',
-						},
-					}}
-				>
-					{isPlaying ? (
-						<PauseCircle style={svgStyle} />
-					) : (
-						<PlayCircle style={svgStyle} />
-					)}
-				</IconButton>
-				<AnimatePresence>{isBuffering && <BufferSpinner />}</AnimatePresence>
-			</PlayPauseButtonWrapper>
-		);
-	}
-)``;
+`);

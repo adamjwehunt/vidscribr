@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { ICaption } from '../../../types';
+import { Caption } from '../../../types';
 
 export default function useActiveCaptionId(
-	captions: ICaption[],
+	captions: Caption[],
 	progress: number
 ): {
 	activeCaptionId: number | null;

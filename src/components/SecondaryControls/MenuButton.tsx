@@ -1,46 +1,27 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import IconButton from '@mui/material/IconButton';
+import { SecondaryButton } from './SecondaryButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { css } from '@emotion/react';
 
 interface MenuButtonProps {
-	isMobile: boolean;
+	className?: string;
 }
 
-export const MenuButton = styled(({ isMobile }: MenuButtonProps) => {
-	const svgStyle = {
-		height: isMobile ? '1em' : '16px',
-		width: '100%',
-		fill: `hsla(0,0%, 100%, ${isMobile ? '1' : '0.7'})`,
-	};
+export const MenuButton = styled(({ className }: MenuButtonProps) => {
+	const handleMenuButtonClick = () => {};
 
 	return (
-		<IconButton
-			size="medium"
-			aria-label={'Menu'}
-			color="primary"
-			disableRipple
-			sx={{
-				'&:hover': {
-					backgroundColor: 'transparent',
-					'& svg': {
-						fill: 'white!important',
-					},
-				},
-				'&:active': {
-					'& svg': {
-						fill: 'hsla(0,0%,100%,.7)!important',
-					},
-				},
-			}}
-			component="label"
-			onClick={() => {}}
-		>
-			<MenuIcon style={svgStyle} />
-		</IconButton>
+		<div className={className}>
+			<SecondaryButton
+				icon={MenuIcon}
+				ariaLabel={'Menu'}
+				onClick={handleMenuButtonClick}
+			/>
+		</div>
 	);
-})`
-	&:hover svg {
-		fill: white;
-	}
-`;
+})(
+	css`
+		margin-right: -8px;
+	`
+);

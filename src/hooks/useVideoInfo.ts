@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ICaption, ICaptionTrack } from '../types';
+import { Caption, CaptionTrack } from '../types';
 
-export default function useVideoInfo(url: string) {
+export default function useVideoInfo(url: string): any | null {
 	const [videoInfo, setVideoInfo] = useState<any | null>(null);
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ export async function getYoutubeInfo({
 	const url = `https://video-stream-info-0t47m3binksc.runkit.sh/ytinfo?url=${videoId}`;
 	const videoInfo = await fetch(url).then((t) => t.json());
 
-	let captions: ICaption[] = [];
+	let captions: Caption[] = [];
 	if (videoInfo?.tracks?.length > 0) {
 		captions = await getYoutubeCaptions(videoInfo.tracks, language);
 	}
@@ -42,9 +42,9 @@ export async function getYoutubeInfo({
 }
 
 export async function getYoutubeCaptions(
-	captionTracks: ICaptionTrack[],
+	captionTracks: CaptionTrack[],
 	language = 'en'
-): Promise<ICaption[]> {
+): Promise<Caption[]> {
 	const resp = await fetch(findBestTranscriptUrl(captionTracks, language))
 		.then((response) => response.text())
 		.then((str) => new window.DOMParser().parseFromString(str, 'text/xml'));
@@ -59,7 +59,7 @@ export async function getYoutubeCaptions(
 }
 
 const findBestTranscriptUrl = (
-	captionTracks: ICaptionTrack[],
+	captionTracks: CaptionTrack[],
 	language = 'en'
 ): string => {
 	const trackMatchesByLanguage = captionTracks
@@ -88,22 +88,29 @@ const validPathDomains =
 export const getYoutubeVideoIdFromUrl = (url: string) => {
 	const parsed = new URL(url.trim());
 	let id = parsed.searchParams.get('v');
+
 	if (validPathDomains.test(url.trim()) && !id) {
 		const paths = parsed.pathname.split('/');
 		id = parsed.host === 'youtu.be' ? paths[1] : paths[2];
 	} else if (parsed.hostname && !validQueryDomains.has(parsed.hostname)) {
-		throw Error('Not a YouTube domain');
+		console.log('Not a YouTube domain');
+		return;
 	}
+
 	if (!id) {
-		throw Error(`No video id found: "${url}"`);
+		console.log(`No video id found: "${url}"`);
+		return;
 	}
+
 	id = id.substring(0, 11);
+
 	if (!validateID(id)) {
 		throw TypeError(
 			`Video id (${id}) does not match expected ` +
 				`format (${idRegex.toString()})`
 		);
 	}
+
 	return id;
 };
 const idRegex = /^[a-zA-Z0-9-_]{11}$/;

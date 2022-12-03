@@ -1,52 +1,67 @@
-import styled from '@emotion/styled';
-import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
+import usePlayerContext from '../playerContext';
+import styled from '@emotion/styled';
 import { DelayRender } from '../DelayRender';
+import { AnimatePresence, motion } from 'framer-motion';
+import { css } from '@emotion/react';
 
-const Spinner = styled(motion.div)`
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	&:before {
-		content: '';
-		position: absolute;
-		top: -3px;
-		right: -3px;
-		bottom: -3px;
-		left: -3px;
-		background: #fff;
-		border-radius: 100%;
-		opacity: 0.3;
-	}
-
-	&:after {
-		content: '';
-		position: absolute;
-		top: -3px;
-		right: -3px;
-		bottom: -3px;
-		left: -3px;
-		border: 4px solid transparent;
-		border-radius: 100%;
-		border-top-color: #fff;
-	}
-`;
-
-export default function BufferSpinner() {
-	return (
-		<DelayRender seconds={0.25}>
-			<Spinner
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1, rotate: 360 }}
-				exit={{ opacity: 0 }}
-				transition={{
-					rotate: { duration: 0.65, repeat: Infinity, delay: 0.3 },
-					opacity: { duration: 0.35, delay: 0.3 },
-				}}
-			/>
-		</DelayRender>
-	);
+interface BufferSpinnerProps {
+	className?: string;
 }
+
+export const BufferSpinner = styled(({ className }: BufferSpinnerProps) => {
+	const {
+		playerState: { isBuffering },
+	} = usePlayerContext();
+
+	if (!isBuffering) {
+		return null;
+	}
+
+	return (
+		<AnimatePresence>
+			<DelayRender seconds={0.25}>
+				<motion.div
+					className={className}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1, rotate: 360 }}
+					exit={{ opacity: 0 }}
+					transition={{
+						rotate: { duration: 0.65, repeat: Infinity, delay: 0.3 },
+						opacity: { duration: 0.35, delay: 0.3 },
+					}}
+				/>
+			</DelayRender>
+		</AnimatePresence>
+	);
+})(() => {
+	const pseudoElementBase = css`
+		content: '';
+		position: absolute;
+		top: -3px;
+		right: -3px;
+		bottom: -3px;
+		left: -3px;
+		border-radius: 100%;
+	`;
+
+	return css`
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		&:before {
+			${pseudoElementBase};
+			opacity: 0.3;
+			background: #fff;
+		}
+
+		&:after {
+			${pseudoElementBase};
+			border: 4px solid transparent;
+			border-top-color: #fff;
+		}
+	`;
+});

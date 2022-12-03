@@ -5,14 +5,14 @@ export interface Video {
 
 export interface VideoInfo {}
 
-export interface ICaptionTrack {
+export interface CaptionTrack {
 	baseUrl: string;
 	isTranslatable: boolean;
 	languageCode: string;
 	name: { simpleText: string };
 	vssId: string;
 }
-export interface ICaption {
+export interface Caption {
 	id: number;
 	start: number;
 	duration: number;

@@ -1,12 +1,11 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
-export const DelayRender = ({
-	children,
-	seconds,
-}: {
+interface DelayRenderProps {
 	children: ReactNode;
 	seconds: number;
-}) => {
+}
+
+export const DelayRender = ({ children, seconds }: DelayRenderProps) => {
 	const [isVisible, setIsVisible] = useState(false);
 
 	useEffect(() => {
@@ -17,5 +16,5 @@ export const DelayRender = ({
 		return () => clearTimeout(timeout);
 	}, [isVisible]);
 
-	return isVisible ? <>{children}</> : null;
+	return !isVisible ? null : <>{children}</>;
 };
