@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { Caption, StyledComponent } from '../../types';
 import { CaptionText } from './CaptionText';
@@ -19,7 +19,7 @@ interface CaptionsProps extends StyledComponent {
 	activeCaptionId: number | null;
 }
 
-export const Captions = React.memo(
+export const Captions = memo(
 	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
 		const playerRef = usePlayerRefContext();
 		const { playerDispatch } = usePlayerContext();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Top } from './Top';
 import { Bottom } from './Bottom';
 import { TranscriptControls } from './TranscriptControls';
@@ -14,7 +14,7 @@ export default function Transcript({ playerInfo }: TranscriptProps) {
 	}
 
 	const { videoDetails, captions } = playerInfo;
-	const [isExpanded, setIsExpanded] = React.useState(false);
+	const [isExpanded, setIsExpanded] = useState(false);
 	const handleToggleExpand = () => setIsExpanded(!isExpanded);
 
 	return (
