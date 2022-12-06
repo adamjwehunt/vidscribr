@@ -44,11 +44,11 @@ const SliderStyles: SxProps = {
 };
 
 export const Scrubber = styled(({ className }: StyledComponent) => {
+	const playerRef = usePlayerRefContext();
 	const {
 		playerState: { played, duration },
 		playerDispatch,
 	} = usePlayerContext();
-	const { playerRef } = usePlayerRefContext();
 
 	const handleSeek = (seconds: number) => {
 		playerDispatch({ type: 'seek' });

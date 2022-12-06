@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Caption, CaptionTrack } from '../types';
 
-export default function useVideoInfo(url: string): any | null {
-	const [videoInfo, setVideoInfo] = useState<any | null>(null);
+export default function usePlayerInfo(url: string): any | null {
+	const [playerInfo, setPlayerInfo] = useState<any | null>(null);
 
 	useEffect(() => {
 		if (!url) {
@@ -16,11 +16,11 @@ export default function useVideoInfo(url: string): any | null {
 		}
 
 		getYoutubeInfo({ videoId }).then((info) => {
-			setVideoInfo(info);
+			setPlayerInfo(info);
 		});
 	}, [url]);
 
-	return videoInfo;
+	return playerInfo;
 }
 
 export async function getYoutubeInfo({
@@ -31,14 +31,14 @@ export async function getYoutubeInfo({
 	language?: string;
 }) {
 	const url = `https://video-stream-info-0t47m3binksc.runkit.sh/ytinfo?url=${videoId}`;
-	const videoInfo = await fetch(url).then((t) => t.json());
+	const playerInfo = await fetch(url).then((t) => t.json());
 
 	let captions: Caption[] = [];
-	if (videoInfo?.tracks?.length > 0) {
-		captions = await getYoutubeCaptions(videoInfo.tracks, language);
+	if (playerInfo?.tracks?.length > 0) {
+		captions = await getYoutubeCaptions(playerInfo.tracks, language);
 	}
 
-	return { ...videoInfo, captions };
+	return { ...playerInfo, captions };
 }
 
 export async function getYoutubeCaptions(

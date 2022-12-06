@@ -3,7 +3,7 @@ export interface Video {
 	id: string;
 }
 
-export interface VideoInfo {}
+export interface PlayerInfo {}
 
 export interface CaptionTrack {
 	baseUrl: string;

@@ -7,12 +7,12 @@ import { Controls } from './Controls';
 import { Details } from './Details';
 import { SecondaryControls } from './SecondaryControls';
 
-interface VideoTrayProps extends StyledComponent {
+interface PlayerTrayProps extends StyledComponent {
 	videoDetails: any;
 }
 
-export const VideoTray = styled(
-	({ videoDetails, className }: VideoTrayProps) => (
+export const PlayerTray = styled(
+	({ videoDetails, className }: PlayerTrayProps) => (
 		<div className={className}>
 			<Details videoDetails={videoDetails} />
 			<Controls />

@@ -16,11 +16,11 @@ interface SkipButtonProps {
 }
 
 export const SkipButton = styled(({ back }: SkipButtonProps) => {
+	const playerRef = usePlayerRefContext();
 	const {
 		playerState: { played, duration },
 		playerDispatch,
 	} = usePlayerContext();
-	const { playerRef } = usePlayerRefContext();
 
 	const handleSkip = () => {
 		const newPlayed = clamp(

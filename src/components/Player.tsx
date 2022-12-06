@@ -14,6 +14,7 @@ const reactPlayerConfig: Config = {
 		},
 	},
 };
+
 interface PlayerProps extends StyledComponent {
 	url: string;
 	playerRef: RefObject<ReactPlayer>;

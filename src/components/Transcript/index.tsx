@@ -5,15 +5,15 @@ import { TranscriptControls } from './TranscriptControls';
 import { MotionConfig } from 'framer-motion';
 
 interface TranscriptProps {
-	videoInfo: any;
+	playerInfo: any;
 }
 
-export default function Transcript({ videoInfo }: TranscriptProps) {
-	if (!videoInfo?.captions?.length) {
+export default function Transcript({ playerInfo }: TranscriptProps) {
+	if (!playerInfo?.captions?.length) {
 		return null;
 	}
 
-	const { videoDetails, captions } = videoInfo;
+	const { videoDetails, captions } = playerInfo;
 	const [isExpanded, setIsExpanded] = React.useState(false);
 	const handleToggleExpand = () => setIsExpanded(!isExpanded);
 

@@ -21,8 +21,8 @@ interface CaptionsProps extends StyledComponent {
 
 export const Captions = React.memo(
 	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
+		const playerRef = usePlayerRefContext();
 		const { playerDispatch } = usePlayerContext();
-		const { playerRef } = usePlayerRefContext();
 		const wrapperRef = useRef<HTMLInputElement>(null);
 
 		const handleActiveCaptionChange = useCallback((activeCaption: any) => {
