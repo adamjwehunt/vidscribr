@@ -14,7 +14,7 @@ const CaptionsContainer = styled.div`
 `;
 
 interface CaptionsProps {
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 	className?: string;
 	captions: Caption[];
 	activeCaptionId: number | null;
@@ -26,7 +26,7 @@ export const Captions = React.memo(
 			className,
 			captions,
 			activeCaptionId,
-			reactPlayerRef,
+			playerRef,
 		}: CaptionsProps) => {
 			const wrapperRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +39,9 @@ export const Captions = React.memo(
 				}
 			}, []);
 
+			const handleCaptionClick = (captionStart: number) =>
+				playerRef.current?.seekTo(captionStart);
+
 			return (
 				<div ref={wrapperRef} className={className}>
 					<CaptionsContainer>
@@ -49,9 +52,7 @@ export const Captions = React.memo(
 									key={i}
 									isActive={isActive}
 									captionRef={isActive ? handleActiveCaptionChange : null}
-									onClick={() => {
-										reactPlayerRef.current?.seekTo(start);
-									}}
+									onClick={() => handleCaptionClick(start)}
 									text={text}
 								/>
 							);

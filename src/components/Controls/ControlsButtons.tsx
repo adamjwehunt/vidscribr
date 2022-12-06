@@ -8,15 +8,15 @@ import { SkipButton } from './SkipButton';
 
 interface ControlsButtonsProps {
 	className?: string;
-	reactPlayerRef: React.RefObject<ReactPlayer>;
+	playerRef: React.RefObject<ReactPlayer>;
 }
 
 export const ControlsButtons = styled(
-	({ className, reactPlayerRef }: ControlsButtonsProps) => (
+	({ className, playerRef }: ControlsButtonsProps) => (
 		<div className={className}>
-			<SkipButton back reactPlayerRef={reactPlayerRef} />
+			<SkipButton back playerRef={playerRef} />
 			<PlayPauseButton />
-			<SkipButton reactPlayerRef={reactPlayerRef} />
+			<SkipButton playerRef={playerRef} />
 		</div>
 	)
 )(() => {

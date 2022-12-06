@@ -12,6 +12,7 @@ export interface CaptionTrack {
 	name: { simpleText: string };
 	vssId: string;
 }
+
 export interface Caption {
 	id: number;
 	start: number;

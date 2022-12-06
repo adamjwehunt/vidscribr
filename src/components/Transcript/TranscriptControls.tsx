@@ -6,13 +6,13 @@ import ReactPlayer from 'react-player';
 import { css } from '@emotion/react';
 
 interface TranscriptControlsProps {
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 	isExpanded: boolean;
 	className?: string;
 }
 
 export const TranscriptControls = styled(
-	({ isExpanded, className, reactPlayerRef }: TranscriptControlsProps) => {
+	({ isExpanded, className, playerRef }: TranscriptControlsProps) => {
 		if (!isExpanded) {
 			return null;
 		}
@@ -25,7 +25,7 @@ export const TranscriptControls = styled(
 					animate={{ y: '-18dvh', opacity: 1 }}
 					exit={{ y: 0, opacity: 0 }}
 				>
-					<Controls reactPlayerRef={reactPlayerRef} />
+					<Controls playerRef={playerRef} />
 				</motion.div>
 			</AnimatePresence>
 		);

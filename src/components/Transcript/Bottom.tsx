@@ -11,7 +11,7 @@ import { css } from '@emotion/react';
 
 interface BottomProps {
 	className?: string;
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 	captions: Caption[];
 	isExpanded: boolean;
 	onToggleExpand: () => void;
@@ -21,23 +21,21 @@ export const Bottom = styled(
 	({
 		className,
 		captions,
-		reactPlayerRef,
+		playerRef,
 		isExpanded,
 		onToggleExpand,
 	}: BottomProps) => {
 		const {
-			playerState: { progress },
+			playerState: { played },
 		} = usePlayerContext();
-		const { activeCaptionId, setIsAnimating } = useActiveCaptionId(
-			captions,
-			progress
-		);
+		const { activeCaptionId, handleAnimationStart, handleAnimationComplete } =
+			useActiveCaptionId(captions, played);
 
 		return (
 			<motion.div
 				className={className}
-				onAnimationStart={() => setIsAnimating(true)}
-				onAnimationComplete={() => setIsAnimating(false)}
+				onAnimationStart={handleAnimationStart}
+				onAnimationComplete={handleAnimationComplete}
 				animate={{
 					...(isExpanded && {
 						top: '8dvh',
@@ -51,7 +49,7 @@ export const Bottom = styled(
 			>
 				<TranscriptHeader onToggleExpand={onToggleExpand} />
 				<Captions
-					reactPlayerRef={reactPlayerRef}
+					playerRef={playerRef}
 					activeCaptionId={activeCaptionId}
 					captions={captions}
 				/>

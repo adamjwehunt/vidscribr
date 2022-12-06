@@ -3,13 +3,16 @@ import { Caption } from '../../../types';
 
 export default function useActiveCaptionId(
 	captions: Caption[],
-	progress: number
+	played: number
 ): {
 	activeCaptionId: number | null;
-	setIsAnimating: (isAnimating: boolean) => void;
+	handleAnimationStart: () => void;
+	handleAnimationComplete: () => void;
 } {
 	// Prevents activeCaptionId from updating while animation is in progress
 	const [isAnimating, setIsAnimating] = React.useState(false);
+	const handleAnimationStart = () => setIsAnimating(true);
+	const handleAnimationComplete = () => setIsAnimating(false);
 
 	const previousActiveCaptionId = React.useRef<number | null>(null);
 
@@ -25,15 +28,15 @@ export default function useActiveCaptionId(
 					i: number
 				) => {
 					return (
-						progress > start &&
-						progress < (captions[i + 1]?.start || start + duration)
+						played > start &&
+						played < (captions[i + 1]?.start || start + duration)
 					);
 				}
 			)?.id || null;
 
 		previousActiveCaptionId.current = id;
 		return id;
-	}, [captions, progress, isAnimating]);
+	}, [captions, played, isAnimating]);
 
-	return { activeCaptionId, setIsAnimating };
+	return { activeCaptionId, handleAnimationStart, handleAnimationComplete };
 }

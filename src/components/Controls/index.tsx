@@ -3,19 +3,19 @@ import ReactPlayer from 'react-player';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { ControlsButtons } from './ControlsButtons';
-import Scrubber from './Scrubber';
+import { Scrubber } from './Scrubber';
 import useAppContext from '../appContext';
 
 interface ControlsProps {
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 	className?: string;
 }
 
 export const Controls = styled(
-	({ reactPlayerRef, className }: ControlsProps) => (
+	({ playerRef, className }: ControlsProps) => (
 		<div className={className}>
-			<ControlsButtons reactPlayerRef={reactPlayerRef} />
-			<Scrubber reactPlayerRef={reactPlayerRef} />
+			<ControlsButtons playerRef={playerRef} />
+			<Scrubber playerRef={playerRef} />
 		</div>
 	)
 )(() => {

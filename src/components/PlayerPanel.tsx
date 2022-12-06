@@ -18,18 +18,19 @@ export const PlayerPanel = ({ url }: PlayerPanelProps) => {
 			playerReducer(previousState, action),
 		DEFAULT_PLAYER_REDUCER_STATE
 	);
-	const reactPlayerRef = useRef<ReactPlayer | null>(null);
+
+	const playerRef = useRef<ReactPlayer | null>(null);
 	const videoInfo = useVideoInfo(url);
 
 	return (
 		<PlayerContext.Provider value={playerState}>
 			<PlayerDispatchContext.Provider value={dispatch}>
-				<Player url={url} reactPlayerRef={reactPlayerRef} />
-				<VideoTray
-					reactPlayerRef={reactPlayerRef}
-					videoDetails={videoInfo?.videoDetails}
-				/>
-				<Transcript reactPlayerRef={reactPlayerRef} videoInfo={videoInfo} />
+				<Player url={url} playerRef={playerRef} />
+					<VideoTray
+						playerRef={playerRef}
+						videoDetails={videoInfo?.videoDetails}
+					/>
+					<Transcript playerRef={playerRef} videoInfo={videoInfo} />
 			</PlayerDispatchContext.Provider>
 		</PlayerContext.Provider>
 	);

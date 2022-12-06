@@ -6,12 +6,12 @@ import { MotionConfig } from 'framer-motion';
 import ReactPlayer from 'react-player';
 
 interface TranscriptProps {
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 	videoInfo: any;
 }
 
 export default function Transcript({
-	reactPlayerRef,
+	playerRef,
 	videoInfo,
 }: TranscriptProps) {
 	if (!videoInfo?.captions?.length) {
@@ -32,7 +32,7 @@ export default function Transcript({
 				onToggleExpand={handleToggleExpand}
 			/>
 			<Bottom
-				reactPlayerRef={reactPlayerRef}
+				playerRef={playerRef}
 				captions={captions}
 				isExpanded={isExpanded}
 				onToggleExpand={handleToggleExpand}
@@ -40,7 +40,7 @@ export default function Transcript({
 			<TranscriptControls
 				key={'transcriptControls'}
 				isExpanded={isExpanded}
-				reactPlayerRef={reactPlayerRef}
+				playerRef={playerRef}
 			/>
 		</MotionConfig>
 	);

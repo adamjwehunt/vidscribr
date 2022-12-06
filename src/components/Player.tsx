@@ -1,69 +1,72 @@
 import React, { RefObject } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import ReactPlayer from 'react-player';
+import ReactPlayer, { Config } from 'react-player';
 import usePlayerContext from './playerContext';
 import useAppContext from './appContext';
+import { OnProgressProps } from 'react-player/base';
 
+const reactPlayerConfig: Config = {
+	youtube: {
+		playerVars: {
+			wmode: 'opaque',
+		},
+	},
+};
 interface PlayerProps {
 	className?: string;
 	url: string;
-	reactPlayerRef: RefObject<ReactPlayer>;
+	playerRef: RefObject<ReactPlayer>;
 }
 
-export const Player = styled(
-	({ className, url, reactPlayerRef }: PlayerProps) => {
-		const {
-			playerState: { isPlaying },
-			playerDispatch,
-		} = usePlayerContext();
+export const Player = styled(({ className, url, playerRef }: PlayerProps) => {
+	const {
+		playerState: { isPlaying, isSeeking },
+		playerDispatch,
+	} = usePlayerContext();
 
-		return (
-			<div className={className}>
-				<ReactPlayer
-					style={{ position: 'sticky', top: '6dvh' }}
-					ref={reactPlayerRef}
-					url={url}
-					playing={isPlaying}
-					width={'100%'}
-					height={'56.25dvw'}
-					controls={true}
-					progressInterval={200}
-					config={{
-						youtube: {
-							playerVars: {
-								wmode: 'opaque',
-							},
-						},
-					}}
-					onReady={() => {}}
-					onDuration={(duration) =>
-						playerDispatch({
-							type: 'duration',
-							seconds: duration,
-						})
-					}
-					onProgress={({ playedSeconds }) =>
-						playerDispatch({
-							type: 'progress',
-							seconds: playedSeconds,
-						})
-					}
-					onSeek={(seconds) =>
-						playerDispatch({
-							type: 'progress',
-							seconds,
-						})
-					}
-					onPlay={() => playerDispatch({ type: 'play' })}
-					onPause={() => playerDispatch({ type: 'pause' })}
-					onBuffer={() => playerDispatch({ type: 'buffer' })}
-					onBufferEnd={() => playerDispatch({ type: 'bufferEnd' })}
-				/>
-			</div>
-		);
-	}
-)(() => {
+	const dispatchPlayed = (seconds: number) => {
+		if (isSeeking) return;
+		playerDispatch({
+			type: 'played',
+			seconds,
+		});
+	};
+	const handleDuration = (seconds: number) =>
+		playerDispatch({
+			type: 'duration',
+			seconds,
+		});
+	const handleSeek = (seconds: number) => dispatchPlayed(seconds);
+	const handleProgress = ({ playedSeconds }: OnProgressProps) =>
+		dispatchPlayed(playedSeconds);
+	const handlePlay = () => playerDispatch({ type: 'play' });
+	const handlePause = () => playerDispatch({ type: 'pause' });
+	const handleBuffer = () => playerDispatch({ type: 'buffer' });
+	const handleBufferEnd = () => playerDispatch({ type: 'bufferEnd' });
+
+	return (
+		<div className={className}>
+			<ReactPlayer
+				ref={playerRef}
+				playing={isPlaying}
+				url={url}
+				controls={true}
+				config={reactPlayerConfig}
+				style={{ position: 'sticky', top: '6dvh' }}
+				width={'100%'}
+				height={'56.25dvw'}
+				onSeek={handleSeek}
+				onPlay={handlePlay}
+				onPause={handlePause}
+				onBuffer={handleBuffer}
+				onBufferEnd={handleBufferEnd}
+				onProgress={handleProgress}
+				onDuration={handleDuration}
+			/>
+		</div>
+	);
+})(() => {
 	const {
 		viewport: { isMobile },
 	} = useAppContext();

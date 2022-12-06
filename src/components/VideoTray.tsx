@@ -8,15 +8,15 @@ import { SecondaryControls } from './SecondaryControls';
 
 interface VideoTrayProps {
 	videoDetails: any;
-	reactPlayerRef: React.RefObject<any>;
+	playerRef: React.RefObject<any>;
 	className?: string;
 }
 
 export const VideoTray = styled(
-	({ videoDetails, reactPlayerRef, className }: VideoTrayProps) => (
+	({ videoDetails, playerRef, className }: VideoTrayProps) => (
 		<div className={className}>
 			<Details videoDetails={videoDetails} />
-			<Controls reactPlayerRef={reactPlayerRef} />
+			<Controls playerRef={playerRef} />
 			<SecondaryControls />
 		</div>
 	)
