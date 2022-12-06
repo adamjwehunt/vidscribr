@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import usePlayerContext from '../playerContext';
 import { css } from '@emotion/react';
-import 'react-scrubber/lib/scrubber.css';
 import { ScrubberLabels } from './ScrubberLabels';
 import { Slider, SxProps } from '@mui/material';
 import usePlayerRefContext from '../playerRefContext';
