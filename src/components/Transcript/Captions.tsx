@@ -4,6 +4,7 @@ import { Caption } from '../../types';
 import { CaptionText } from './CaptionText';
 import { css } from '@emotion/react';
 import usePlayerRefContext from '../playerRefContext';
+import usePlayerContext from '../playerContext';
 
 const CaptionsContainer = styled.div`
 	overflow: scroll;
@@ -21,6 +22,7 @@ interface CaptionsProps {
 
 export const Captions = React.memo(
 	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
+		const { playerDispatch } = usePlayerContext();
 		const { playerRef } = usePlayerRefContext();
 		const wrapperRef = useRef<HTMLInputElement>(null);
 
@@ -33,8 +35,10 @@ export const Captions = React.memo(
 			}
 		}, []);
 
-		const handleCaptionClick = (captionStart: number) =>
+		const handleCaptionClick = (captionStart: number) => {
 			playerRef.current?.seekTo(captionStart);
+			playerDispatch({ type: 'played', seconds: captionStart });
+		};
 
 		return (
 			<div ref={wrapperRef} className={className}>

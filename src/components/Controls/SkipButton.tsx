@@ -18,18 +18,20 @@ interface SkipButtonProps {
 export const SkipButton = styled(({ back }: SkipButtonProps) => {
 	const {
 		playerState: { played, duration },
+		playerDispatch,
 	} = usePlayerContext();
 	const { playerRef } = usePlayerRefContext();
 
 	const handleSkip = () => {
-		const seconds = back ? -SKIP_COUNT_SECONDS : SKIP_COUNT_SECONDS;
-		const newPlayed = clamp(played + seconds, 0, duration);
+		const skipCount = back ? -SKIP_COUNT_SECONDS : SKIP_COUNT_SECONDS;
+		const newPlayed = clamp(played + skipCount, 0, duration);
 
 		if (newPlayed === played) {
 			return;
 		}
 
 		playerRef.current?.seekTo(newPlayed);
+		playerDispatch({ type: 'played', seconds: newPlayed });
 	};
 
 	return (
