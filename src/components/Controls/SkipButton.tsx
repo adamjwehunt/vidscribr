@@ -4,23 +4,22 @@ import usePlayerContext from '../playerContext';
 import IconButton from '@mui/material/IconButton';
 import { SkipIcon } from './SkipIcon';
 import { clamp } from './util';
-import ReactPlayer from 'react-player';
 import SkipForwardIcon from '../../svgs/skip_forward.svg';
 import SkipBackIcon from '../../svgs/skip_back.svg';
 import { css } from '@emotion/react';
-// import usePlayerRefContext from '../playerRefContext';
+import usePlayerRefContext from '../playerRefContext';
 
 const SKIP_COUNT_SECONDS = 15;
 
 interface SkipButtonProps {
 	back?: boolean;
-	playerRef: React.RefObject<ReactPlayer>;
 }
 
-export const SkipButton = styled(({ back, playerRef }: SkipButtonProps) => {
+export const SkipButton = styled(({ back }: SkipButtonProps) => {
 	const {
 		playerState: { played, duration },
 	} = usePlayerContext();
+	const { playerRef } = usePlayerRefContext();
 
 	const handleSkip = () => {
 		const seconds = back ? -SKIP_COUNT_SECONDS : SKIP_COUNT_SECONDS;

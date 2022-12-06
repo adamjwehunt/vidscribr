@@ -1,9 +1,9 @@
-import React, { RefObject, useCallback, useRef } from 'react';
-import ReactPlayer from 'react-player';
+import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { Caption } from '../../types';
 import { CaptionText } from './CaptionText';
 import { css } from '@emotion/react';
+import usePlayerRefContext from '../playerRefContext';
 
 const CaptionsContainer = styled.div`
 	overflow: scroll;
@@ -14,54 +14,47 @@ const CaptionsContainer = styled.div`
 `;
 
 interface CaptionsProps {
-	playerRef: RefObject<ReactPlayer>;
 	className?: string;
 	captions: Caption[];
 	activeCaptionId: number | null;
 }
 
 export const Captions = React.memo(
-	styled(
-		({
-			className,
-			captions,
-			activeCaptionId,
-			playerRef,
-		}: CaptionsProps) => {
-			const wrapperRef = useRef<HTMLInputElement>(null);
+	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
+		const { playerRef } = usePlayerRefContext();
+		const wrapperRef = useRef<HTMLInputElement>(null);
 
-			const handleActiveCaptionChange = useCallback((activeCaption: any) => {
-				const wrapper = wrapperRef?.current;
-				if (activeCaption && wrapper) {
-					const activeCaptionRect = activeCaption.getBoundingClientRect();
-					// wrapper.scrollTo(0, middle);
-					// activeCaption.scrollIntoView()
-				}
-			}, []);
+		const handleActiveCaptionChange = useCallback((activeCaption: any) => {
+			const wrapper = wrapperRef?.current;
+			if (activeCaption && wrapper) {
+				// const activeCaptionRect = activeCaption.getBoundingClientRect();
+				// wrapper.scrollTo(0, middle);
+				// activeCaption.scrollIntoView()
+			}
+		}, []);
 
-			const handleCaptionClick = (captionStart: number) =>
-				playerRef.current?.seekTo(captionStart);
+		const handleCaptionClick = (captionStart: number) =>
+			playerRef.current?.seekTo(captionStart);
 
-			return (
-				<div ref={wrapperRef} className={className}>
-					<CaptionsContainer>
-						{captions.map(({ start, text, id }: Caption, i: number) => {
-							const isActive = activeCaptionId === id;
-							return (
-								<CaptionText
-									key={i}
-									isActive={isActive}
-									captionRef={isActive ? handleActiveCaptionChange : null}
-									onClick={() => handleCaptionClick(start)}
-									text={text}
-								/>
-							);
-						})}
-					</CaptionsContainer>
-				</div>
-			);
-		}
-	)(() => {
+		return (
+			<div ref={wrapperRef} className={className}>
+				<CaptionsContainer>
+					{captions.map(({ start, text, id }: Caption, i: number) => {
+						const isActive = activeCaptionId === id;
+						return (
+							<CaptionText
+								key={i}
+								isActive={isActive}
+								captionRef={isActive ? handleActiveCaptionChange : null}
+								onClick={() => handleCaptionClick(start)}
+								text={text}
+							/>
+						);
+					})}
+				</CaptionsContainer>
+			</div>
+		);
+	})(() => {
 		const pseudoElementBase = (location: 'top' | 'bottom') => css`
 			content: '';
 			position: absolute;

@@ -1,19 +1,14 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { Top } from './Top';
 import { Bottom } from './Bottom';
 import { TranscriptControls } from './TranscriptControls';
 import { MotionConfig } from 'framer-motion';
-import ReactPlayer from 'react-player';
 
 interface TranscriptProps {
-	playerRef: RefObject<ReactPlayer>;
 	videoInfo: any;
 }
 
-export default function Transcript({
-	playerRef,
-	videoInfo,
-}: TranscriptProps) {
+export default function Transcript({ videoInfo }: TranscriptProps) {
 	if (!videoInfo?.captions?.length) {
 		return null;
 	}
@@ -32,16 +27,11 @@ export default function Transcript({
 				onToggleExpand={handleToggleExpand}
 			/>
 			<Bottom
-				playerRef={playerRef}
 				captions={captions}
 				isExpanded={isExpanded}
 				onToggleExpand={handleToggleExpand}
 			/>
-			<TranscriptControls
-				key={'transcriptControls'}
-				isExpanded={isExpanded}
-				playerRef={playerRef}
-			/>
+			<TranscriptControls key={'transcriptControls'} isExpanded={isExpanded} />
 		</MotionConfig>
 	);
 }

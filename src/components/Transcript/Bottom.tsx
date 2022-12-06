@@ -1,9 +1,8 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Captions } from './Captions';
 import { TranscriptHeader } from './TranscriptHeader';
 import styled from '@emotion/styled';
-import ReactPlayer from 'react-player';
 import useActiveCaptionId from './hooks/useActiveCaptionId';
 import { Caption } from '../../types';
 import usePlayerContext from '../playerContext';
@@ -11,20 +10,13 @@ import { css } from '@emotion/react';
 
 interface BottomProps {
 	className?: string;
-	playerRef: RefObject<ReactPlayer>;
 	captions: Caption[];
 	isExpanded: boolean;
 	onToggleExpand: () => void;
 }
 
 export const Bottom = styled(
-	({
-		className,
-		captions,
-		playerRef,
-		isExpanded,
-		onToggleExpand,
-	}: BottomProps) => {
+	({ className, captions, isExpanded, onToggleExpand }: BottomProps) => {
 		const {
 			playerState: { played },
 		} = usePlayerContext();
@@ -48,11 +40,7 @@ export const Bottom = styled(
 				}}
 			>
 				<TranscriptHeader onToggleExpand={onToggleExpand} />
-				<Captions
-					playerRef={playerRef}
-					activeCaptionId={activeCaptionId}
-					captions={captions}
-				/>
+				<Captions activeCaptionId={activeCaptionId} captions={captions} />
 			</motion.div>
 		);
 	}

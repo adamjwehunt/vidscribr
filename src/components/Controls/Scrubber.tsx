@@ -2,10 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import usePlayerContext from '../playerContext';
 import { css } from '@emotion/react';
-import ReactPlayer from 'react-player';
 import 'react-scrubber/lib/scrubber.css';
 import { ScrubberLabels } from './ScrubberLabels';
 import { Slider, SxProps } from '@mui/material';
+import usePlayerRefContext from '../playerRefContext';
 
 const ScrubberContainer = styled.div`
 	margin: auto;
@@ -44,14 +44,14 @@ const SliderStyles: SxProps = {
 
 interface ScrubberProps {
 	className?: string;
-	playerRef: React.RefObject<ReactPlayer>;
 }
 
-export const Scrubber = styled(({ className, playerRef }: ScrubberProps) => {
+export const Scrubber = styled(({ className }: ScrubberProps) => {
 	const {
 		playerState: { played, duration },
 		playerDispatch,
 	} = usePlayerContext();
+	const { playerRef } = usePlayerRefContext();
 
 	const handleSeek = (seconds: number) => {
 		playerDispatch({ type: 'seek' });

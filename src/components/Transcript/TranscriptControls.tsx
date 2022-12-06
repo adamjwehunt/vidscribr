@@ -1,18 +1,16 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { Controls } from '../Controls';
-import ReactPlayer from 'react-player';
 import { css } from '@emotion/react';
 
 interface TranscriptControlsProps {
-	playerRef: RefObject<ReactPlayer>;
 	isExpanded: boolean;
 	className?: string;
 }
 
 export const TranscriptControls = styled(
-	({ isExpanded, className, playerRef }: TranscriptControlsProps) => {
+	({ isExpanded, className }: TranscriptControlsProps) => {
 		if (!isExpanded) {
 			return null;
 		}
@@ -25,7 +23,7 @@ export const TranscriptControls = styled(
 					animate={{ y: '-18dvh', opacity: 1 }}
 					exit={{ y: 0, opacity: 0 }}
 				>
-					<Controls playerRef={playerRef} />
+					<Controls />
 				</motion.div>
 			</AnimatePresence>
 		);

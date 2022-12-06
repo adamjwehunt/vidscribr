@@ -4,6 +4,7 @@ import useVideoInfo from '../hooks/useVideoInfo';
 import { PlayerContext, PlayerDispatchContext } from './playerContext';
 import { playerReducer, DEFAULT_PLAYER_REDUCER_STATE } from './playerReducer';
 import { PlayerReducerAction, PlayerReducerState } from './playerReducer/types';
+import { PlayerRefContext } from './playerRefContext';
 import { Player } from './Player';
 import Transcript from './Transcript';
 import { VideoTray } from './VideoTray';
@@ -26,11 +27,10 @@ export const PlayerPanel = ({ url }: PlayerPanelProps) => {
 		<PlayerContext.Provider value={playerState}>
 			<PlayerDispatchContext.Provider value={dispatch}>
 				<Player url={url} playerRef={playerRef} />
-					<VideoTray
-						playerRef={playerRef}
-						videoDetails={videoInfo?.videoDetails}
-					/>
-					<Transcript playerRef={playerRef} videoInfo={videoInfo} />
+				<PlayerRefContext.Provider value={playerRef}>
+					<VideoTray videoDetails={videoInfo?.videoDetails} />
+					<Transcript videoInfo={videoInfo} />
+				</PlayerRefContext.Provider>
 			</PlayerDispatchContext.Provider>
 		</PlayerContext.Provider>
 	);
