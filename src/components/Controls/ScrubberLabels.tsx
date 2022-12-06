@@ -3,12 +3,9 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TimeLeftLabel } from './TimeLeftLabel';
 import { PlayedLabel } from './PlayedLabel';
+import { StyledComponent } from '../../types';
 
-interface ScrubberLabelsProps {
-	className?: string;
-}
-
-export const ScrubberLabels = styled(({ className }: ScrubberLabelsProps) => (
+export const ScrubberLabels = styled(({ className }: StyledComponent) => (
 	<div className={className}>
 		<PlayedLabel />
 		<TimeLeftLabel />

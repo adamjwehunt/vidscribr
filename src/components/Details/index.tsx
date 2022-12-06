@@ -4,9 +4,9 @@ import useAppContext from '../appContext';
 import { Thumbnail } from './Thumbnail';
 import { DetailsText } from './DetailsText';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
-interface DetailsProps {
-	className?: string;
+interface DetailsProps extends StyledComponent {
 	videoDetails: any | null;
 }
 

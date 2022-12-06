@@ -4,12 +4,11 @@ import { Captions } from './Captions';
 import { TranscriptHeader } from './TranscriptHeader';
 import styled from '@emotion/styled';
 import useActiveCaptionId from './hooks/useActiveCaptionId';
-import { Caption } from '../../types';
+import { Caption, StyledComponent } from '../../types';
 import usePlayerContext from '../playerContext';
 import { css } from '@emotion/react';
 
-interface BottomProps {
-	className?: string;
+interface BottomProps extends StyledComponent {
 	captions: Caption[];
 	isExpanded: boolean;
 	onToggleExpand: () => void;

@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
+import { StyledComponent } from '../../types';
 import { ExpandButton } from './ExpandButton';
-interface TranscriptHeaderProps {
-	className?: string;
+interface TranscriptHeaderProps extends StyledComponent {
 	onToggleExpand: () => void;
 }
 

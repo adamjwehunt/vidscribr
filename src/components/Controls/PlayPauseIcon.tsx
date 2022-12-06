@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
+import { StyledComponent } from '../../types';
 
-interface PlayPauseIconProps {
-	className?: string;
+interface PlayPauseIconProps extends StyledComponent {
 	icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
 		muiName: string;
 	};

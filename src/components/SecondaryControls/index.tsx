@@ -4,13 +4,10 @@ import useAppContext from '../appContext';
 import { MenuButton } from './MenuButton';
 import { DownloadButton } from './DownloadButton';
 import { css } from '@emotion/react';
-
-interface SecondaryControlsProps {
-	className?: string;
-}
+import { StyledComponent } from '../../types';
 
 export const SecondaryControls = styled(
-	({ className }: SecondaryControlsProps) => (
+	({ className }: StyledComponent) => (
 		<div className={className}>
 			<DownloadButton />
 			<MenuButton />

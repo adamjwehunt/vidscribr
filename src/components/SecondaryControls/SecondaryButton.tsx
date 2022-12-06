@@ -5,9 +5,9 @@ import { css } from '@emotion/react';
 import useAppContext from '../appContext';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
+import { StyledComponent } from '../../types';
 
-interface SecondaryButtonProps {
-	className?: string;
+interface SecondaryButtonProps extends StyledComponent {
 	icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
 		muiName: string;
 	};

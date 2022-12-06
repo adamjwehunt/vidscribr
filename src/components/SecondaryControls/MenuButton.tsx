@@ -3,12 +3,9 @@ import styled from '@emotion/styled';
 import { SecondaryButton } from './SecondaryButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
-interface MenuButtonProps {
-	className?: string;
-}
-
-export const MenuButton = styled(({ className }: MenuButtonProps) => {
+export const MenuButton = styled(({ className }: StyledComponent) => {
 	const handleMenuButtonClick = () => {};
 
 	return (

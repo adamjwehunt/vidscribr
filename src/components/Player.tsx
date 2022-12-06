@@ -5,6 +5,7 @@ import ReactPlayer, { Config } from 'react-player';
 import usePlayerContext from './playerContext';
 import useAppContext from './appContext';
 import { OnProgressProps } from 'react-player/base';
+import { StyledComponent } from '../types';
 
 const reactPlayerConfig: Config = {
 	youtube: {
@@ -13,8 +14,7 @@ const reactPlayerConfig: Config = {
 		},
 	},
 };
-interface PlayerProps {
-	className?: string;
+interface PlayerProps extends StyledComponent {
 	url: string;
 	playerRef: RefObject<ReactPlayer>;
 }

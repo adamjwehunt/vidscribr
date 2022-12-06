@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { MinimizeButton } from './MinimizeButton';
 import { SearchTranscriptButton } from './SearchTranscriptButton';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
 const Info = styled.div`
 	padding: 0 1em;
@@ -23,8 +24,7 @@ const Info = styled.div`
 	}
 `;
 
-interface TopProps {
-	className?: string;
+interface TopProps extends StyledComponent {
 	title: string;
 	artist: string;
 	isExpanded: boolean;

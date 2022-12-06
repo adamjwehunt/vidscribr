@@ -1,14 +1,14 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
+import { StyledComponent } from '../types';
 import useAppContext from './appContext';
 import { Controls } from './Controls';
 import { Details } from './Details';
 import { SecondaryControls } from './SecondaryControls';
 
-interface VideoTrayProps {
+interface VideoTrayProps extends StyledComponent {
 	videoDetails: any;
-	className?: string;
 }
 
 export const VideoTray = styled(

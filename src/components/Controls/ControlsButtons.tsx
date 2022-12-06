@@ -1,15 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
+import { StyledComponent } from '../../types';
 import useAppContext from '../appContext';
 import { PlayPauseButton } from './PlayPauseButton';
 import { SkipButton } from './SkipButton';
 
-interface ControlsButtonsProps {
-	className?: string;
-}
-
-export const ControlsButtons = styled(({ className }: ControlsButtonsProps) => (
+export const ControlsButtons = styled(({ className }: StyledComponent) => (
 	<div className={className}>
 		<SkipButton back />
 		<PlayPauseButton />

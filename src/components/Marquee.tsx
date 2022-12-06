@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { SerializedStyles } from '@emotion/react';
+import { StyledComponent } from '../types';
 
 const MarqueeWrapper = styled.div`
 	width: 100%;
@@ -12,8 +13,7 @@ const Text = styled.div`
 	white-space: nowrap;
 `;
 
-interface MarqueeProps {
-	className?: string;
+interface MarqueeProps extends StyledComponent {
 	text?: string;
 	textStyle?: SerializedStyles;
 }

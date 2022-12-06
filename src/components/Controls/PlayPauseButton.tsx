@@ -6,12 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import { BufferSpinner } from './BufferSpinner';
 import { css } from '@emotion/react';
 import { PlayPauseIcon } from './PlayPauseIcon';
+import { StyledComponent } from '../../types';
 
-interface PlayPauseButtonProps {
-	className?: string;
-}
-
-export const PlayPauseButton = styled(({ className }: PlayPauseButtonProps) => {
+export const PlayPauseButton = styled(({ className }: StyledComponent) => {
 	const {
 		playerState: { isPlaying },
 		playerDispatch,

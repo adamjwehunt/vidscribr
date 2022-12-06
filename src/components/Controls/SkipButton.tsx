@@ -23,8 +23,11 @@ export const SkipButton = styled(({ back }: SkipButtonProps) => {
 	const { playerRef } = usePlayerRefContext();
 
 	const handleSkip = () => {
-		const skipCount = back ? -SKIP_COUNT_SECONDS : SKIP_COUNT_SECONDS;
-		const newPlayed = clamp(played + skipCount, 0, duration);
+		const newPlayed = clamp(
+			played + (back ? -SKIP_COUNT_SECONDS : SKIP_COUNT_SECONDS),
+			0,
+			duration
+		);
 
 		if (newPlayed === played) {
 			return;

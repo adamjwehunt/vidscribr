@@ -1,9 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { StyledComponent } from '../../types';
 
-interface CaptionTextProps {
-	className?: string;
+interface CaptionTextProps extends StyledComponent {
 	isActive: boolean;
 	text: string;
 	captionRef: ((activeCaption: any) => void) | null;

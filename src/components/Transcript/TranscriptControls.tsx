@@ -3,10 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { Controls } from '../Controls';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
-interface TranscriptControlsProps {
+interface TranscriptControlsProps extends StyledComponent {
 	isExpanded: boolean;
-	className?: string;
 }
 
 export const TranscriptControls = styled(

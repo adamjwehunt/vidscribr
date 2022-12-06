@@ -4,12 +4,9 @@ import styled from '@emotion/styled';
 import { DelayRender } from '../DelayRender';
 import { AnimatePresence, motion } from 'framer-motion';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
-interface BufferSpinnerProps {
-	className?: string;
-}
-
-export const BufferSpinner = styled(({ className }: BufferSpinnerProps) => {
+export const BufferSpinner = styled(({ className }: StyledComponent) => {
 	const {
 		playerState: { isBuffering },
 	} = usePlayerContext();

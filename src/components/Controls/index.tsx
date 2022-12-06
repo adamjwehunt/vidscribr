@@ -4,12 +4,9 @@ import { css } from '@emotion/react';
 import { ControlsButtons } from './ControlsButtons';
 import { Scrubber } from './Scrubber';
 import useAppContext from '../appContext';
+import { StyledComponent } from '../../types';
 
-interface ControlsProps {
-	className?: string;
-}
-
-export const Controls = styled(({ className }: ControlsProps) => (
+export const Controls = styled(({ className }: StyledComponent) => (
 	<div className={className}>
 		<ControlsButtons />
 		<Scrubber />

@@ -19,3 +19,8 @@ export interface Caption {
 	duration: number;
 	text: string;
 }
+
+export interface StyledComponent {
+	className?: string;
+	style?: React.CSSProperties;
+}

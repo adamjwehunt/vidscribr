@@ -3,12 +3,9 @@ import styled from '@emotion/styled';
 import { SecondaryButton } from './SecondaryButton';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { css } from '@emotion/react';
+import { StyledComponent } from '../../types';
 
-interface DownloadButtonProps {
-	className?: string;
-}
-
-export const DownloadButton = styled(({ className }: DownloadButtonProps) => {
+export const DownloadButton = styled(({ className }: StyledComponent) => {
 	const handleDownloadButtonClick = () => {};
 
 	return (

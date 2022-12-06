@@ -6,6 +6,7 @@ import 'react-scrubber/lib/scrubber.css';
 import { ScrubberLabels } from './ScrubberLabels';
 import { Slider, SxProps } from '@mui/material';
 import usePlayerRefContext from '../playerRefContext';
+import { StyledComponent } from '../../types';
 
 const ScrubberContainer = styled.div`
 	margin: auto;
@@ -42,11 +43,7 @@ const SliderStyles: SxProps = {
 	},
 };
 
-interface ScrubberProps {
-	className?: string;
-}
-
-export const Scrubber = styled(({ className }: ScrubberProps) => {
+export const Scrubber = styled(({ className }: StyledComponent) => {
 	const {
 		playerState: { played, duration },
 		playerDispatch,

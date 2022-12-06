@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
+import { StyledComponent } from '../../types';
 import { Marquee } from '../Marquee';
 
-interface DetailsTextProps {
-	className?: string;
+interface DetailsTextProps extends StyledComponent {
 	title?: string;
 	artist?: string;
 }

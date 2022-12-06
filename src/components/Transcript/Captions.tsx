@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
-import { Caption } from '../../types';
+import { Caption, StyledComponent } from '../../types';
 import { CaptionText } from './CaptionText';
 import { css } from '@emotion/react';
 import usePlayerRefContext from '../playerRefContext';
@@ -14,8 +14,7 @@ const CaptionsContainer = styled.div`
 	}
 `;
 
-interface CaptionsProps {
-	className?: string;
+interface CaptionsProps extends StyledComponent {
 	captions: Caption[];
 	activeCaptionId: number | null;
 }
