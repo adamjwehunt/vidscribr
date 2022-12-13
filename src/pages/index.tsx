@@ -1,8 +1,8 @@
 import * as React from 'react';
 import type { HeadFC } from 'gatsby';
 import { SEO } from '../components/SEO';
-import { PlayerPanel } from '../components/PlayerPanel';
 import { AppProvider } from '../components/appContext/AppProvider';
+import PlayerPanel from '../components/PlayerPanel';
 
 const IndexPage = () => {
 	return (

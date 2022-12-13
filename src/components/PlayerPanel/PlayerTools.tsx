@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
 import ReactPlayer from 'react-player';
-import usePlayerInfo from '../hooks/usePlayerInfo';
-import Transcript from './Transcript';
+import usePlayerInfo from '../../hooks/usePlayerInfo';
+import Transcript from '../Transcript';
 import { PlayerTray } from './PlayerTray';
 
 interface PlayerToolsProps {

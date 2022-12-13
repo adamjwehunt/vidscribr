@@ -1,11 +1,11 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StyledComponent } from '../types';
-import { useAppState } from './appContext';
-import { Controls } from './Controls';
-import { Details } from './Details';
-import { SecondaryControls } from './SecondaryControls';
+import { StyledComponent } from '../../types';
+import { useAppState } from '../appContext';
+import { Controls } from '../Controls';
+import { Details } from '../Details';
+import { SecondaryControls } from '../SecondaryControls';
 
 interface PlayerTrayProps extends StyledComponent {
 	videoDetails: any;

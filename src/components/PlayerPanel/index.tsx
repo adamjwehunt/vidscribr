@@ -1,13 +1,13 @@
 import React from 'react';
+import { PlayerProvider } from '../playerContext/PlayerProvider';
 import { Player } from './Player';
-import { PlayerProvider } from './playerContext/PlayerProvider';
 import { PlayerTools } from './PlayerTools';
 
 interface PlayerPanelProps {
 	url: string;
 }
 
-export const PlayerPanel = ({ url }: PlayerPanelProps) => {
+export default function PlayerPanel({ url }: PlayerPanelProps) {
 	return (
 		<PlayerProvider>
 			{(playerRef) => (
@@ -18,4 +18,4 @@ export const PlayerPanel = ({ url }: PlayerPanelProps) => {
 			)}
 		</PlayerProvider>
 	);
-};
+}
