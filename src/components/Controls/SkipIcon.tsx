@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import useAppContext from '../appContext';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
 import { StyledComponent } from '../../types';
+import { useAppState } from '../appContext';
 
 interface SkipIconProps extends StyledComponent {
 	icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
@@ -17,7 +17,7 @@ export const SkipIcon = styled(({ icon: Icon, className }: SkipIconProps) => (
 ))(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		height: 1.3em;

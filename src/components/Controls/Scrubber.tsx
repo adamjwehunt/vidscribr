@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import usePlayerContext from '../playerContext';
+import {
+	usePlayerStateDispatch,
+	usePlayerRef,
+	usePlayerState,
+} from '../playerContext';
 import { css } from '@emotion/react';
 import { ScrubberLabels } from './ScrubberLabels';
 import { Slider, SxProps } from '@mui/material';
-import usePlayerRefContext from '../playerRefContext';
 import { StyledComponent } from '../../types';
+import {
+	usePlayerProgress,
+	usePlayerProgressDispatch,
+} from '../playerProgressContext';
 
 const ScrubberContainer = styled.div`
 	margin: auto;
@@ -43,21 +50,21 @@ const SliderStyles: SxProps = {
 };
 
 export const Scrubber = styled(({ className }: StyledComponent) => {
-	const playerRef = usePlayerRefContext();
-	const {
-		playerState: { played, duration },
-		playerDispatch,
-	} = usePlayerContext();
+	const { duration } = usePlayerState();
+	const playerStateDispatch = usePlayerStateDispatch();
+	const { played } = usePlayerProgress();
+	const playerProgressDispatch = usePlayerProgressDispatch();
+	const { seekTo } = usePlayerRef();
 
 	const handleSeek = (seconds: number) => {
-		playerDispatch({ type: 'seek' });
-		playerDispatch({ type: 'played', seconds });
+		playerStateDispatch({ type: 'seek' });
+		playerProgressDispatch({ type: 'played', seconds });
 	};
 
 	const handleSeekCommitted = (seconds: number) => {
-		playerRef.current?.seekTo(seconds);
-		playerDispatch({ type: 'played', seconds });
-		playerDispatch({ type: 'seekEnd' });
+		playerStateDispatch({ type: 'seekEnd' });
+		playerProgressDispatch({ type: 'played', seconds });
+		seekTo(seconds);
 	};
 
 	return (

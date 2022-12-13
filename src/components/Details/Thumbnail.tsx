@@ -1,5 +1,5 @@
 import React from 'react';
-import useAppContext from '../appContext';
+import { useAppState } from '../appContext';
 
 interface ThumbnailProps {
 	thumbnailUrl?: string;
@@ -12,7 +12,7 @@ export const Thumbnail = ({ thumbnailUrl }: ThumbnailProps) => {
 
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return isMobile ? null : <img src={thumbnailUrl} />;
 };

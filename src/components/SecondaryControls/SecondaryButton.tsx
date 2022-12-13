@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
 import { css } from '@emotion/react';
-import useAppContext from '../appContext';
+import { useAppState } from '../appContext';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
 import { StyledComponent } from '../../types';
@@ -44,7 +44,7 @@ export const SecondaryButton = styled(
 )(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		height: 16px;

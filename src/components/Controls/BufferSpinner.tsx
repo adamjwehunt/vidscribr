@@ -1,15 +1,13 @@
 import React from 'react';
-import usePlayerContext from '../playerContext';
 import styled from '@emotion/styled';
+import { usePlayerState } from '../playerContext';
 import { DelayRender } from '../DelayRender';
 import { AnimatePresence, motion } from 'framer-motion';
 import { css } from '@emotion/react';
 import { StyledComponent } from '../../types';
 
 export const BufferSpinner = styled(({ className }: StyledComponent) => {
-	const {
-		playerState: { isBuffering },
-	} = usePlayerContext();
+	const { isBuffering } = usePlayerState();
 
 	if (!isBuffering) {
 		return null;

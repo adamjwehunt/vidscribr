@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import usePlayerContext from '../playerContext';
+import { usePlayerRef, usePlayerState } from '../playerContext';
 import IconButton from '@mui/material/IconButton';
 import { SkipIcon } from './SkipIcon';
 import { clamp } from './util';
 import SkipForwardIcon from '../../svgs/skip_forward.svg';
 import SkipBackIcon from '../../svgs/skip_back.svg';
 import { css } from '@emotion/react';
-import usePlayerRefContext from '../playerRefContext';
+import {
+	usePlayerProgress,
+	usePlayerProgressDispatch,
+} from '../playerProgressContext';
 
 const SKIP_COUNT_SECONDS = 15;
 
@@ -16,11 +19,10 @@ interface SkipButtonProps {
 }
 
 export const SkipButton = styled(({ back }: SkipButtonProps) => {
-	const playerRef = usePlayerRefContext();
-	const {
-		playerState: { played, duration },
-		playerDispatch,
-	} = usePlayerContext();
+	const { duration } = usePlayerState();
+	const { played } = usePlayerProgress();
+	const playerProgressDispatch = usePlayerProgressDispatch();
+	const { seekTo } = usePlayerRef();
 
 	const handleSkip = () => {
 		const newPlayed = clamp(
@@ -33,8 +35,8 @@ export const SkipButton = styled(({ back }: SkipButtonProps) => {
 			return;
 		}
 
-		playerRef.current?.seekTo(newPlayed);
-		playerDispatch({ type: 'played', seconds: newPlayed });
+		seekTo(newPlayed);
+		playerProgressDispatch({ type: 'played', seconds: newPlayed });
 	};
 
 	return (

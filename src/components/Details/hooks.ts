@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useLayoutEffect, useState } from 'react';
 
 export const useIsOverflow = (ref: any, callback: any) => {

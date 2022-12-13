@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import usePlayerContext from '../playerContext';
+import { usePlayerStateDispatch, usePlayerState } from '../playerContext';
 import { PlayCircle, PauseCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { BufferSpinner } from './BufferSpinner';
@@ -9,10 +9,8 @@ import { PlayPauseIcon } from './PlayPauseIcon';
 import { StyledComponent } from '../../types';
 
 export const PlayPauseButton = styled(({ className }: StyledComponent) => {
-	const {
-		playerState: { isPlaying },
-		playerDispatch,
-	} = usePlayerContext();
+	const { isPlaying } = usePlayerState();
+	const playerStateDispatch = usePlayerStateDispatch();
 
 	return (
 		<div className={className}>
@@ -21,7 +19,7 @@ export const PlayPauseButton = styled(({ className }: StyledComponent) => {
 				size="medium"
 				color="primary"
 				component="label"
-				onClick={() => playerDispatch({ type: isPlaying ? 'pause' : 'play' })}
+				onClick={() => playerStateDispatch({ type: isPlaying ? 'pause' : 'play' })}
 				disableRipple
 				sx={{
 					pointerEvents: 'auto',

@@ -1,8 +1,8 @@
+import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
 import { StyledComponent } from '../types';
-import useAppContext from './appContext';
+import { useAppState } from './appContext';
 import { Controls } from './Controls';
 import { Details } from './Details';
 import { SecondaryControls } from './SecondaryControls';
@@ -22,7 +22,7 @@ export const PlayerTray = styled(
 )(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		position: absolute;

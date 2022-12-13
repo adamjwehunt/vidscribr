@@ -7,8 +7,8 @@ import {
 export const DEFAULT_PLAYER_REDUCER_STATE: PlayerReducerState = Object.freeze({
 	isPlaying: false,
 	isSeeking: false,
+	hasSeeked: false,
 	isBuffering: false,
-	played: 0,
 	duration: 0,
 });
 
@@ -36,6 +36,12 @@ export const playerReducer: PlayerReducer = (
 			return {
 				...previousState,
 				isSeeking: false,
+				hasSeeked: true,
+			};
+		case 'seekEnd':
+			return {
+				...previousState,
+				hasSeeked: false,
 			};
 		case 'buffer':
 			return {
@@ -46,11 +52,6 @@ export const playerReducer: PlayerReducer = (
 			return {
 				...previousState,
 				isBuffering: false,
-			};
-		case 'played':
-			return {
-				...previousState,
-				played: action.seconds,
 			};
 		case 'duration':
 			return {

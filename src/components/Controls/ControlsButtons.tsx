@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 import { StyledComponent } from '../../types';
-import useAppContext from '../appContext';
+import { useAppState } from '../appContext';
 import { PlayPauseButton } from './PlayPauseButton';
 import { SkipButton } from './SkipButton';
 
@@ -15,7 +15,7 @@ export const ControlsButtons = styled(({ className }: StyledComponent) => (
 ))(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		display: flex;

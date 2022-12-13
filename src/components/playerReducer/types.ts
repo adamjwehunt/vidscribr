@@ -2,8 +2,8 @@ import { Reducer } from 'react';
 export interface PlayerReducerState {
 	isPlaying: boolean;
 	isSeeking: boolean;
+	hasSeeked: boolean;
 	isBuffering: boolean;
-	played: number;
 	duration: number;
 }
 
@@ -25,14 +25,13 @@ export type PlayerReducerAction =
 			type: 'seekEnd';
 	  }
 	| {
+			type: 'seekComplete';
+	  }
+	| {
 			type: 'buffer';
 	  }
 	| {
 			type: 'bufferEnd';
-	  }
-	| {
-			type: 'played';
-			seconds: number;
 	  }
 	| {
 			type: 'duration';

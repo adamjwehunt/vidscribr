@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import useAppContext from '../appContext';
 import { Thumbnail } from './Thumbnail';
 import { DetailsText } from './DetailsText';
 import { css } from '@emotion/react';
 import { StyledComponent } from '../../types';
+import { useAppState } from '../appContext';
 
 interface DetailsProps extends StyledComponent {
 	videoDetails: any | null;
@@ -30,7 +30,7 @@ export const Details = styled(({ className, videoDetails }: DetailsProps) => {
 })(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		display: flex;

@@ -1,6 +1,6 @@
 import React from 'react';
+import { useAppState } from '../appContext';
 import styled from '@emotion/styled';
-import useAppContext from '../appContext';
 import IconButton from '@mui/material/IconButton';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import { css } from '@emotion/react';
@@ -12,7 +12,7 @@ interface ExpandButtonProps {
 export const ExpandButton = styled(({ onClick }: ExpandButtonProps) => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return (
 		<IconButton

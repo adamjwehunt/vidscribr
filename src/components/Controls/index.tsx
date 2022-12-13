@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { ControlsButtons } from './ControlsButtons';
 import { Scrubber } from './Scrubber';
-import useAppContext from '../appContext';
 import { StyledComponent } from '../../types';
+import { useAppState } from '../appContext';
 
 export const Controls = styled(({ className }: StyledComponent) => (
 	<div className={className}>
@@ -14,7 +14,7 @@ export const Controls = styled(({ className }: StyledComponent) => (
 ))(() => {
 	const {
 		viewport: { isMobile },
-	} = useAppContext();
+	} = useAppState();
 
 	return css`
 		display: flex;

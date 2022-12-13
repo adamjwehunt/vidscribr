@@ -5,8 +5,8 @@ import { TranscriptHeader } from './TranscriptHeader';
 import styled from '@emotion/styled';
 import useActiveCaptionId from './hooks/useActiveCaptionId';
 import { Caption, StyledComponent } from '../../types';
-import usePlayerContext from '../playerContext';
 import { css } from '@emotion/react';
+import { usePlayerProgress } from '../playerProgressContext';
 
 interface BottomProps extends StyledComponent {
 	captions: Caption[];
@@ -16,9 +16,8 @@ interface BottomProps extends StyledComponent {
 
 export const Bottom = styled(
 	({ className, captions, isExpanded, onToggleExpand }: BottomProps) => {
-		const {
-			playerState: { played },
-		} = usePlayerContext();
+		const { played } = usePlayerProgress();
+
 		const { activeCaptionId, handleAnimationStart, handleAnimationComplete } =
 			useActiveCaptionId(captions, played);
 

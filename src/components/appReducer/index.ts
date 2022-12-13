@@ -1,7 +1,8 @@
 import { AppReducer, AppReducerAction, AppReducerState } from './types';
 
 export const DEFAULT_APP_REDUCER_STATE: AppReducerState = Object.freeze({
-	url: '',
+	// Temporary default value
+	url: 'https://www.youtube.com/watch?v=Y0vaUa5A4Ec',
 });
 
 export const appReducer: AppReducer = (

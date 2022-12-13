@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
+import { usePlayerStateDispatch, usePlayerRef } from '../playerContext';
 import { Caption, StyledComponent } from '../../types';
 import { CaptionText } from './CaptionText';
 import { css } from '@emotion/react';
-import usePlayerRefContext from '../playerRefContext';
-import usePlayerContext from '../playerContext';
+import { usePlayerProgressDispatch } from '../playerProgressContext';
 
 const CaptionsContainer = styled.div`
 	overflow: scroll;
@@ -21,8 +21,10 @@ interface CaptionsProps extends StyledComponent {
 
 export const Captions = memo(
 	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
-		const playerRef = usePlayerRefContext();
-		const { playerDispatch } = usePlayerContext();
+		const playerProgressDispatch = usePlayerProgressDispatch();
+		const playerStateDispatch = usePlayerStateDispatch();
+		const { seekTo } = usePlayerRef();
+
 		const wrapperRef = useRef<HTMLInputElement>(null);
 
 		const handleActiveCaptionChange = useCallback((activeCaption: any) => {
@@ -35,8 +37,8 @@ export const Captions = memo(
 		}, []);
 
 		const handleCaptionClick = (captionStart: number) => {
-			playerRef.current?.seekTo(captionStart);
-			playerDispatch({ type: 'played', seconds: captionStart });
+			seekTo(captionStart);
+			playerProgressDispatch({ type: 'played', seconds: captionStart });
 		};
 
 		return (
