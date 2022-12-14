@@ -37,6 +37,8 @@ export const Top = styled(
 			return null;
 		}
 
+		const handleSearchTranscriptButtonClick = () => {};
+
 		return (
 			<AnimatePresence>
 				<motion.div
@@ -45,7 +47,7 @@ export const Top = styled(
 					animate={{ y: 0, opacity: 1 }}
 					exit={{ y: '-5em', opacity: 0 }}
 				>
-					<SearchTranscriptButton onClick={() => {}} />
+					<SearchTranscriptButton onClick={handleSearchTranscriptButtonClick} />
 					<Info>
 						<div>{title}</div>
 						<div>{artist}</div>

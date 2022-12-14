@@ -22,7 +22,6 @@ interface CaptionsProps extends StyledComponent {
 export const Captions = memo(
 	styled(({ className, captions, activeCaptionId }: CaptionsProps) => {
 		const playerProgressDispatch = usePlayerProgressDispatch();
-		const playerStateDispatch = usePlayerStateDispatch();
 		const { seekTo } = usePlayerRef();
 
 		const wrapperRef = useRef<HTMLInputElement>(null);

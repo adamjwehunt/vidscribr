@@ -8,12 +8,11 @@ export function useFetch(endpoint: string, options?: ResponseInit) {
 	useEffect(() => {
 		const { signal, abort } = new AbortController();
 
-    const fetchData = async () => {
+		const fetchData = async () =>
 			await fetch(endpoint, { ...options, signal })
 				.then((res) => setData(res.json()))
 				.catch(setError)
 				.finally(() => setIsLoading(false));
-		};
 
 		fetchData();
 

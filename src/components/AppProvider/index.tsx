@@ -17,7 +17,7 @@ const theme = createTheme({
 });
 
 interface AppProviderProps {
-	children: (appState: AppReducerState) => ReactNode;
+	children: ReactNode;
 }
 
 export default function AppProvider({ children }: AppProviderProps) {
@@ -32,9 +32,9 @@ export default function AppProvider({ children }: AppProviderProps) {
 			<AppStateDispatchContext.Provider value={appStateDispatch}>
 				<ThemeProvider theme={theme}>
 					<GlobalStyles />
-					{children(appState)}
+					{children}
 				</ThemeProvider>
 			</AppStateDispatchContext.Provider>
 		</AppStateContext.Provider>
 	);
-};
+}

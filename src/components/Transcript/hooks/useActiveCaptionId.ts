@@ -23,15 +23,9 @@ export default function useActiveCaptionId(
 
 		const id =
 			captions.find(
-				(
-					{ start, duration }: { start: number; duration: number },
-					i: number
-				) => {
-					return (
-						played > start &&
-						played < (captions[i + 1]?.start || start + duration)
-					);
-				}
+				({ start, duration }: { start: number; duration: number }, i: number) =>
+					played > start &&
+					played < (captions[i + 1]?.start || start + duration)
 			)?.id || null;
 
 		previousActiveCaptionId.current = id;

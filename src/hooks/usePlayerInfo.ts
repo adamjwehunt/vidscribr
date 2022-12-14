@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useAppState } from '../components/AppProvider/appContext';
 import { Caption, CaptionTrack } from '../types';
 
-export default function usePlayerInfo(url: string): any | null {
+const baseVideoStreamInfoUrl =
+	'https://video-stream-info-0t47m3binksc.runkit.sh';
+
+export default function usePlayerInfo(): any | null {
+	const {
+		appState: { url },
+	} = useAppState();
+
 	const [playerInfo, setPlayerInfo] = useState<any | null>(null);
 
 	useEffect(() => {
@@ -15,9 +23,7 @@ export default function usePlayerInfo(url: string): any | null {
 			return;
 		}
 
-		getYoutubeInfo({ videoId }).then((info) => {
-			setPlayerInfo(info);
-		});
+		getYoutubeInfo({ videoId }).then((info) => setPlayerInfo(info));
 	}, [url]);
 
 	return playerInfo;
@@ -30,7 +36,7 @@ export async function getYoutubeInfo({
 	videoId: string;
 	language?: string;
 }) {
-	const url = `https://video-stream-info-0t47m3binksc.runkit.sh/ytinfo?url=${videoId}`;
+	const url = `${baseVideoStreamInfoUrl}/ytinfo?url=${videoId}`;
 	const playerInfo = await fetch(url).then((t) => t.json());
 
 	let captions: Caption[] = [];
@@ -113,5 +119,7 @@ export const getYoutubeVideoIdFromUrl = (url: string) => {
 
 	return id;
 };
+
 const idRegex = /^[a-zA-Z0-9-_]{11}$/;
+
 const validateID = (id: string) => idRegex.test(id.trim());

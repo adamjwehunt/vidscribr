@@ -12,38 +12,36 @@ const ChevronDownIcon = styled(ArrowBackIosIcon)`
 	margin-top: -0.4em;
 `;
 
-export const MinimizeButton = styled(({ onClick }: MinimizeButtonProps) => {
-	return (
-		<IconButton
-			size="medium"
-			aria-label={'Menu'}
-			color="primary"
-			disableRipple
-			sx={{
-				fontSize: '.8em',
-				borderRadius: '1.5rem',
-				backgroundColor: 'rgba(0, 0, 0, 0.60)',
-				height: '3em',
-				width: '3em',
-				'&:hover': {
-					backgroundColor: 'transparent',
-					'& svg': {
-						fill: 'white!important',
-					},
+export const MinimizeButton = styled(({ onClick }: MinimizeButtonProps) => (
+	<IconButton
+		size="medium"
+		aria-label={'Menu'}
+		color="primary"
+		disableRipple
+		sx={{
+			fontSize: '.8em',
+			borderRadius: '1.5rem',
+			backgroundColor: 'rgba(0, 0, 0, 0.60)',
+			height: '3em',
+			width: '3em',
+			'&:hover': {
+				backgroundColor: 'transparent',
+				'& svg': {
+					fill: 'white!important',
 				},
-				'&:active': {
-					'& svg': {
-						fill: 'hsla(0,0%,100%,.7)!important',
-					},
+			},
+			'&:active': {
+				'& svg': {
+					fill: 'hsla(0,0%,100%,.7)!important',
 				},
-			}}
-			component="label"
-			onClick={onClick}
-		>
-			<ChevronDownIcon />
-		</IconButton>
-	);
-})`
+			},
+		}}
+		component="label"
+		onClick={onClick}
+	>
+		<ChevronDownIcon />
+	</IconButton>
+))`
 	&:hover svg {
 		fill: white;
 	}

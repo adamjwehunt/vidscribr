@@ -1,16 +1,12 @@
 import React, { RefObject } from 'react';
 import ReactPlayer from 'react-player';
 import usePlayerInfo from '../../hooks/usePlayerInfo';
+import { useAppState } from '../AppProvider/appContext';
 import Transcript from '../Transcript';
 import { PlayerTray } from './PlayerTray';
 
-interface PlayerToolsProps {
-	url: string;
-	playerRef: RefObject<ReactPlayer>;
-}
-
-export const PlayerTools = ({ url }: PlayerToolsProps) => {
-	const playerInfo = usePlayerInfo(url);
+export const PlayerTools = () => {
+	const playerInfo = usePlayerInfo();
 
 	return (
 		<>

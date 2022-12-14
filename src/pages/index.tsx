@@ -4,13 +4,11 @@ import { SEO } from '../components/SEO';
 import AppProvider from '../components/AppProvider';
 import PlayerPanel from '../components/PlayerPanel';
 
-const IndexPage = () => {
-	return (
-		<AppProvider>
-			{(appState) => <PlayerPanel url={appState.url} />}
-		</AppProvider>
-	);
-};
+const IndexPage = () => (
+	<AppProvider>
+		<PlayerPanel />
+	</AppProvider>
+);
 
 export default IndexPage;
 

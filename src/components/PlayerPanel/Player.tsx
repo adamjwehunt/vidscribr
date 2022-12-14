@@ -4,7 +4,10 @@ import { css } from '@emotion/react';
 import ReactPlayer, { Config } from 'react-player';
 import { OnProgressProps } from 'react-player/base';
 import { StyledComponent } from '../../types';
-import { usePlayerStateDispatch, usePlayerState } from '../PlayerProvider/playerContext';
+import {
+	usePlayerStateDispatch,
+	usePlayerState,
+} from '../PlayerProvider/playerContext';
 import { usePlayerProgressDispatch } from '../PlayerProvider/playerProgressContext';
 import { useAppState } from '../AppProvider/appContext';
 
@@ -16,13 +19,12 @@ const reactPlayerConfig: Config = {
 	},
 };
 
-interface PlayerProps extends StyledComponent {
-	url: string;
-}
-
 export const Player = styled(
 	forwardRef(
-		({ className, url }: PlayerProps, ref: ForwardedRef<ReactPlayer>) => {
+		({ className }: StyledComponent, ref: ForwardedRef<ReactPlayer>) => {
+			const {
+				appState: { url },
+			} = useAppState();
 			const { isPlaying, isSeeking, hasSeeked } = usePlayerState();
 			const playerStateDispatch = usePlayerStateDispatch();
 			const playerProgressDispatch = usePlayerProgressDispatch();
@@ -32,7 +34,7 @@ export const Player = styled(
 					return;
 				}
 
-				// Ignores React Player from sometimes returning a previous progress value after seek
+				// Ignores ReactPlayer from sometimes returning a previous progress value after seek
 				if (hasSeeked) {
 					playerStateDispatch({ type: 'seekComplete' });
 					return;

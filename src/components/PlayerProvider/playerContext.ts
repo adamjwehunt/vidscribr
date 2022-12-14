@@ -1,9 +1,6 @@
 import { createContext, Dispatch, RefObject, useContext } from 'react';
 import ReactPlayer from 'react-player';
-import {
-	PlayerReducerAction,
-	PlayerReducerState,
-} from './types';
+import { PlayerReducerAction, PlayerReducerState } from './types';
 
 export const PlayerStateContext = createContext<PlayerReducerState | null>(
 	null
@@ -34,13 +31,12 @@ export const usePlayerStateDispatch = () => {
 	return playerStateDispatch;
 };
 
-export const usePlayerRef = (): { seekTo: any } => {
+export const usePlayerRef = () => {
 	const playerRef = useContext(PlayerRefContext);
 
 	if (playerRef === null) {
 		throw Error('PlayerRefContext has not been provided.');
 	}
 
-	// return { seekTo: (seconds: number) => playerRef.current?.seekTo(seconds) };
-	return { seekTo: playerRef.current?.seekTo };
+	return { seekTo: (seconds: number) => playerRef.current?.seekTo(seconds) };
 };

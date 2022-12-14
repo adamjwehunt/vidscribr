@@ -16,8 +16,8 @@ export const CaptionText = styled(
 			{text}
 		</div>
 	)
-)(({ isActive }) => {
-	return css`
+)(
+	({ isActive }) => css`
 		color: rgba(0, 0, 0, 0.7);
 		font-size: 1.9em;
 		font-weight: 600;
@@ -32,5 +32,5 @@ export const CaptionText = styled(
 		css`
 			color: #fff;
 		`};
-	`;
-});
+	`
+);

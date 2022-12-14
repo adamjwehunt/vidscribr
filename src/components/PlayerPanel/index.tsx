@@ -3,17 +3,13 @@ import PlayerProvider from '../PlayerProvider';
 import { Player } from './Player';
 import { PlayerTools } from './PlayerTools';
 
-interface PlayerPanelProps {
-	url: string;
-}
-
-export default function PlayerPanel({ url }: PlayerPanelProps) {
+export default function PlayerPanel() {
 	return (
 		<PlayerProvider>
 			{(playerRef) => (
 				<>
-					<Player url={url} ref={playerRef} />
-					<PlayerTools url={url} playerRef={playerRef} />
+					<Player ref={playerRef} />
+					<PlayerTools />
 				</>
 			)}
 		</PlayerProvider>

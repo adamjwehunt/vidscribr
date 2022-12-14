@@ -45,6 +45,7 @@ export default function PlayerProvider({ children }: PlayerProviderProps) {
 	return (
 		<PlayerStateContext.Provider value={playerState}>
 			<PlayerStateDispatchContext.Provider value={playerStateDispatch}>
+				{/* Separate contexts for playerState and playerProgress to avoid unnecessary re-renders */}
 				<PlayerProgressContext.Provider value={playerProgress}>
 					<PlayerProgressDispatchContext.Provider
 						value={playerProgressDispatch}
