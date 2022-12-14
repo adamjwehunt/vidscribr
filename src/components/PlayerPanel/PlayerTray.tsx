@@ -38,7 +38,7 @@ export const PlayerTray = styled(
 
 		${isMobile &&
 		css`
-			bottom: 6dvh;
+			top: calc(100dvh - 16em);
 			height: 23dvh;
 			flex-direction: column;
 			background-color: transparent;
