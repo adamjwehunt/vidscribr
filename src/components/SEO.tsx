@@ -41,6 +41,8 @@ export const SEO = ({
 			<meta name="twitter:description" content={seo.description} />
 			{/* <meta name="twitter:image" content={seo.image} /> */}
 			{/* <meta name="twitter:creator" content={seo.twitterUsername} /> */}
+			<meta name="apple-mobile-web-app-capable" content="yes"></meta>
+			<meta name="mobile-web-app-capable" content="yes"></meta>
 			<meta
 				name="viewport"
 				content="width=device-width, initial-scale=1, maximum-scale=1"
