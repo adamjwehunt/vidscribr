@@ -22,7 +22,12 @@ export const BufferSpinner = styled(({ className }: StyledComponent) => {
 					animate={{ opacity: 1, rotate: 360 }}
 					exit={{ opacity: 0 }}
 					transition={{
-						rotate: { duration: 0.65, repeat: Infinity, delay: 0.3 },
+						rotate: {
+							ease: 'linear',
+							duration: 0.65,
+							repeat: Infinity,
+							delay: 0.2,
+						},
 						opacity: { duration: 0.35, delay: 0.3 },
 					}}
 				/>
