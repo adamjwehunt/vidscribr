@@ -48,7 +48,6 @@ export const SecondaryButton = styled(
 
 	return css`
 		height: 16px;
-		width: 100%;
 		fill: hsla(0, 0%, 100%, 0.7);
 
 		${isMobile &&

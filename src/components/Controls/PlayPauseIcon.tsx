@@ -18,6 +18,6 @@ export const PlayPauseIcon = styled(
 )(
 	css`
 		height: 2.4em;
-		width: 100%;
+		width: auto;
 	`
 );

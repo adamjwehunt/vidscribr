@@ -21,7 +21,6 @@ export const SkipIcon = styled(({ icon: Icon, className }: SkipIconProps) => (
 
 	return css`
 		height: 1.3em;
-		width: 100%;
 		fill: hsla(0, 0%, 100%, 0.7);
 
 		${isMobile &&
