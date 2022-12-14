@@ -1,7 +1,5 @@
-import React, { RefObject } from 'react';
-import ReactPlayer from 'react-player';
+import React from 'react';
 import usePlayerInfo from '../../hooks/usePlayerInfo';
-import { useAppState } from '../AppProvider/appContext';
 import Transcript from '../Transcript';
 import { PlayerTray } from './PlayerTray';
 
