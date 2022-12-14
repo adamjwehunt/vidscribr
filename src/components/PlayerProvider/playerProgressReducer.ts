@@ -2,7 +2,7 @@ import {
 	PlayerProgressReducer,
 	PlayerProgressReducerAction,
 	PlayerProgressReducerState,
-} from './types';
+} from '../playerProgressReducer/types';
 
 export const DEFAULT_PLAYER_PROGRESS_REDUCER_STATE: PlayerProgressReducerState =
 	Object.freeze({

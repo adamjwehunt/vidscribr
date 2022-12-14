@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import {
 	PlayerReducerAction,
 	PlayerReducerState,
-} from '../playerReducer/types';
+} from './types';
 
 export const PlayerStateContext = createContext<PlayerReducerState | null>(
 	null

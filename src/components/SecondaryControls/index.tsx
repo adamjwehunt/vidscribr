@@ -4,7 +4,7 @@ import { MenuButton } from './MenuButton';
 import { DownloadButton } from './DownloadButton';
 import { css } from '@emotion/react';
 import { StyledComponent } from '../../types';
-import { useAppState } from '../appContext';
+import { useAppState } from '../AppProvider/appContext';
 
 export const SecondaryControls = styled(
 	({ className }: StyledComponent) => (

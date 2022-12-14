@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppState } from '../appContext';
+import { useAppState } from '../AppProvider/appContext';
 
 interface ThumbnailProps {
 	thumbnailUrl?: string;

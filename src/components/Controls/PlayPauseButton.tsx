@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { usePlayerStateDispatch, usePlayerState } from '../playerContext';
+import { usePlayerStateDispatch, usePlayerState } from '../PlayerProvider/playerContext';
 import { PlayCircle, PauseCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { BufferSpinner } from './BufferSpinner';

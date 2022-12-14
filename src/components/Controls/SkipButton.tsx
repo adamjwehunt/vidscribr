@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { usePlayerRef, usePlayerState } from '../playerContext';
+import { usePlayerRef, usePlayerState } from '../PlayerProvider/playerContext';
 import IconButton from '@mui/material/IconButton';
 import { SkipIcon } from './SkipIcon';
 import { clamp } from './util';
@@ -10,7 +10,7 @@ import { css } from '@emotion/react';
 import {
 	usePlayerProgress,
 	usePlayerProgressDispatch,
-} from '../playerProgressContext';
+} from '../PlayerProvider/playerProgressContext';
 
 const SKIP_COUNT_SECONDS = 15;
 

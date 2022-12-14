@@ -4,7 +4,7 @@ import {
 	usePlayerStateDispatch,
 	usePlayerRef,
 	usePlayerState,
-} from '../playerContext';
+} from '../PlayerProvider/playerContext';
 import { css } from '@emotion/react';
 import { ScrubberLabels } from './ScrubberLabels';
 import { Slider, SxProps } from '@mui/material';
@@ -12,7 +12,7 @@ import { StyledComponent } from '../../types';
 import {
 	usePlayerProgress,
 	usePlayerProgressDispatch,
-} from '../playerProgressContext';
+} from '../PlayerProvider/playerProgressContext';
 
 const ScrubberContainer = styled.div`
 	margin: auto;

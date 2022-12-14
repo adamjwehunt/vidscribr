@@ -1,6 +1,6 @@
 import React from 'react';
-import { usePlayerState } from '../playerContext';
-import { usePlayerProgress } from '../playerProgressContext';
+import { usePlayerState } from '../PlayerProvider/playerContext';
+import { usePlayerProgress } from '../PlayerProvider/playerProgressContext';
 import { ScrubberLabel } from './ScrubberLabel';
 import { formatDuration } from './util';
 

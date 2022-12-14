@@ -4,9 +4,9 @@ import { css } from '@emotion/react';
 import ReactPlayer, { Config } from 'react-player';
 import { OnProgressProps } from 'react-player/base';
 import { StyledComponent } from '../../types';
-import { usePlayerStateDispatch, usePlayerState } from '../playerContext';
-import { usePlayerProgressDispatch } from '../playerProgressContext';
-import { useAppState } from '../appContext';
+import { usePlayerStateDispatch, usePlayerState } from '../PlayerProvider/playerContext';
+import { usePlayerProgressDispatch } from '../PlayerProvider/playerProgressContext';
+import { useAppState } from '../AppProvider/appContext';
 
 const reactPlayerConfig: Config = {
 	youtube: {

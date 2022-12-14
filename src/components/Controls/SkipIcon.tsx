@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
 import { StyledComponent } from '../../types';
-import { useAppState } from '../appContext';
+import { useAppState } from '../AppProvider/appContext';
 
 interface SkipIconProps extends StyledComponent {
 	icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {

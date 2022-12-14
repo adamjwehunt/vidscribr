@@ -1,30 +1,31 @@
 import React, { MutableRefObject, ReactNode, useReducer, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import {
+	PlayerStateContext,
 	PlayerStateDispatchContext,
 	PlayerRefContext,
-	PlayerStateContext,
-} from '.';
-import { PlayerProgressContext, PlayerProgressDispatchContext } from '../playerProgressContext';
+} from './playerContext';
+import {
+	PlayerProgressContext,
+	PlayerProgressDispatchContext,
+} from './playerProgressContext';
 import {
 	DEFAULT_PLAYER_PROGRESS_REDUCER_STATE,
 	playerProgressReducer,
-} from '../playerProgressReducer';
-import {
-	PlayerProgressReducerState,
-	PlayerProgressReducerAction,
-} from '../playerProgressReducer/types';
-import { playerReducer, DEFAULT_PLAYER_REDUCER_STATE } from '../playerReducer';
+} from './playerProgressReducer';
+import { playerReducer, DEFAULT_PLAYER_REDUCER_STATE } from './playerReducer';
 import {
 	PlayerReducerState,
 	PlayerReducerAction,
-} from '../playerReducer/types';
+	PlayerProgressReducerAction,
+	PlayerProgressReducerState,
+} from './types';
 
 interface PlayerProviderProps {
 	children: (playerRef: MutableRefObject<ReactPlayer | null>) => ReactNode;
 }
 
-export const PlayerProvider = ({ children }: PlayerProviderProps) => {
+export default function PlayerProvider({ children }: PlayerProviderProps) {
 	const [playerState, playerStateDispatch] = useReducer(
 		(previousState: PlayerReducerState, action: PlayerReducerAction) =>
 			playerReducer(previousState, action),
@@ -56,4 +57,4 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
 			</PlayerStateDispatchContext.Provider>
 		</PlayerStateContext.Provider>
 	);
-};
+}

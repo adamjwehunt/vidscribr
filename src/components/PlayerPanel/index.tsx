@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerProvider } from '../playerContext/PlayerProvider';
+import PlayerProvider from '../PlayerProvider';
 import { Player } from './Player';
 import { PlayerTools } from './PlayerTools';
 

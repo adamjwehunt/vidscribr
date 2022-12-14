@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { usePlayerState } from '../playerContext';
+import { usePlayerState } from '../PlayerProvider/playerContext';
 import { DelayRender } from '../DelayRender';
 import { AnimatePresence, motion } from 'framer-motion';
 import { css } from '@emotion/react';

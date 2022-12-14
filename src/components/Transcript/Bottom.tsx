@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import useActiveCaptionId from './hooks/useActiveCaptionId';
 import { Caption, StyledComponent } from '../../types';
 import { css } from '@emotion/react';
-import { usePlayerProgress } from '../playerProgressContext';
+import { usePlayerProgress } from '../PlayerProvider/playerProgressContext';
 
 interface BottomProps extends StyledComponent {
 	captions: Caption[];

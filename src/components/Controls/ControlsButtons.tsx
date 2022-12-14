@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 import { StyledComponent } from '../../types';
-import { useAppState } from '../appContext';
+import { useAppState } from '../AppProvider/appContext';
 import { PlayPauseButton } from './PlayPauseButton';
 import { SkipButton } from './SkipButton';
 

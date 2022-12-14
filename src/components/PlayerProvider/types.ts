@@ -1,4 +1,5 @@
 import { Reducer } from 'react';
+
 export interface PlayerReducerState {
 	isPlaying: boolean;
 	isSeeking: boolean;
@@ -39,3 +40,17 @@ export type PlayerReducerAction =
 	  };
 
 export type PlayerReducer = Reducer<PlayerReducerState, PlayerReducerAction>;
+
+export interface PlayerProgressReducerState {
+	played: number;
+}
+
+export type PlayerProgressReducerAction = {
+	type: 'played';
+	seconds: number;
+};
+
+export type PlayerProgressReducer = Reducer<
+	PlayerProgressReducerState,
+	PlayerProgressReducerAction
+>;

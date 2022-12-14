@@ -4,7 +4,7 @@ import { Thumbnail } from './Thumbnail';
 import { DetailsText } from './DetailsText';
 import { css } from '@emotion/react';
 import { StyledComponent } from '../../types';
-import { useAppState } from '../appContext';
+import { useAppState } from '../AppProvider/appContext';
 
 interface DetailsProps extends StyledComponent {
 	videoDetails: any | null;

@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useContext } from 'react';
 import useViewport from '../../hooks/useViewport';
-import { AppReducerAction, AppReducerState } from '../appReducer/types';
+import { AppReducerAction, AppReducerState } from './types';
 
 export const AppStateContext = createContext<AppReducerState | null>(null);
 

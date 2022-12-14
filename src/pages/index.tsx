@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { HeadFC } from 'gatsby';
 import { SEO } from '../components/SEO';
-import { AppProvider } from '../components/appContext/AppProvider';
+import AppProvider from '../components/AppProvider';
 import PlayerPanel from '../components/PlayerPanel';
 
 const IndexPage = () => {

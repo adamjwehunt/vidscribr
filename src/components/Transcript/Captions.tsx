@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
-import { usePlayerStateDispatch, usePlayerRef } from '../playerContext';
+import { usePlayerStateDispatch, usePlayerRef } from '../PlayerProvider/playerContext';
 import { Caption, StyledComponent } from '../../types';
 import { CaptionText } from './CaptionText';
 import { css } from '@emotion/react';
-import { usePlayerProgressDispatch } from '../playerProgressContext';
+import { usePlayerProgressDispatch } from '../PlayerProvider/playerProgressContext';
 
 const CaptionsContainer = styled.div`
 	overflow: scroll;
