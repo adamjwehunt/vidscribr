@@ -26,11 +26,10 @@ export const PlayerTray = styled(
 
 	return css`
 		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
+		left: 4.5dvw;
+		right: 4.5dvw;
+		bottom: 3em;
 		display: flex;
-		padding: 0 1.5em;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: end;
@@ -38,8 +37,8 @@ export const PlayerTray = styled(
 
 		${isMobile &&
 		css`
-			top: calc(100dvh - 16em);
-			height: 23dvh;
+			/* top: calc(100dvh - 16em); */
+			/* height: 23dvh; */
 			flex-direction: column;
 			background-color: transparent;
 		`};

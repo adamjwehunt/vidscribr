@@ -98,7 +98,7 @@ export const Player = styled(
 
 		${isMobile &&
 		css`
-			bottom: 30dvh;
+			bottom: 40dvh;
 		`};
 	`;
 });

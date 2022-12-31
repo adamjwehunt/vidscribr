@@ -32,7 +32,7 @@ export const TranscriptControls = styled(
 	position: fixed;
 	left: 0;
 	right: 0;
-	top: 100dvh;
+	top: calc(100dvh - 3em);
 	z-index: 3;
 	padding: 0px 1.5em 4em;
 	background-color: rgb(185, 153, 190);

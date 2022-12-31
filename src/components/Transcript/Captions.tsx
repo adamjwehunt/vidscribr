@@ -7,7 +7,8 @@ import { css } from '@emotion/react';
 import { usePlayerProgressDispatch } from '../PlayerProvider/playerProgressContext';
 
 const CaptionsContainer = styled.div`
-	overflow: scroll;
+	overflow-y: scroll;
+	width: 100%;
 
 	&::-webkit-scrollbar {
 		display: none;
